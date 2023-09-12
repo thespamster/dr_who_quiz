@@ -1,0 +1,12 @@
+{
+  "name": "30_seconds_to_doomsday",
+  "version": "1.0.0",
+  "description": "��#\u0000 \u0000d\u0000r\u0000_\u0000w\u0000h\u0000o\u0000_\u0000q\u0000u\u0000i\u0000z\u0000\r\u0000 \u0000",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
