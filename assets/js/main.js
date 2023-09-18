@@ -2,7 +2,7 @@
 var modal = document.getElementById("rulesModal");
 
 // Get the button that opens the modal
-var btn = document.getElementById("button-rules");
+var btn = document.getElementById("buttonRules");
 
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
