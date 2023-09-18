@@ -134,3 +134,49 @@
     width: 100%;
     bottom: 0px;
 }
+
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 1; 
+    padding: 40% 25%;
+    left: 0;
+    top: 0;
+    width: 50%;
+    min-height: 50dvh; 
+    overflow: auto; 
+    background-color: rgba(0,0,0,0.6);
+  }
+
+.modal-content {
+    font-family: 'Roboto', sans-serif;
+    background-color: white;
+    box-shadow: 5px 5px 2px black;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+  }
+
+#rules-style {
+    font-weight: 700;
+    font-size: 1.25em;  
+}
+
+.close {
+    color: black;
+    position: relative;
+    top: -25px;
+    left: 95%;
+    font-size: 2em;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: red;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+
