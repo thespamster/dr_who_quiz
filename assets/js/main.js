@@ -1,15 +1,14 @@
 
 // array containing quiz questions and answers //
 
-let drWhoQuiz = [
+var drWhoQuiz = [
   {
       "question": "Sydney Newman, creator of Dr. Who said that didn't want what 'appearing in the show'?",
       "answers": [
           "Bug Eyed Monsters",
           "Swivel Eyed Loons",
           "Googly Eyed Horrors",
-      ],
-      "correct": 0
+      ]
   },
 
   {
@@ -18,8 +17,7 @@ let drWhoQuiz = [
           "Delia Derbyshire",
           "Delia Smith",
           "Verity Lambert",
-      ],
-      "correct": 0
+      ]
   },
 
   {
@@ -28,8 +26,7 @@ let drWhoQuiz = [
           "Mondas",
           "Uranus",
           "Mongo",
-      ],
-      "correct": 0
+      ]
   },
 
   {
@@ -38,8 +35,7 @@ let drWhoQuiz = [
           "William Hartnell",
           "Edmund Warwick",
           "David Bradley",
-      ],
-      "correct": 0
+      ]
   },
 
   {
@@ -48,8 +44,7 @@ let drWhoQuiz = [
           "4",
           "Zero",
           "9",
-      ],
-      "correct": 0
+      ]
   },
 
   {
@@ -58,8 +53,7 @@ let drWhoQuiz = [
           "Morton Dill",
           "Sabalom Glitz",
           "Terry Nation",
-      ],
-      "correct": 0
+      ]
   },
 
   {
@@ -68,8 +62,7 @@ let drWhoQuiz = [
           "The War Games",
           "The Seeds of Death",
           "The Mind Robber",
-      ],
-      "correct": 0
+      ]
   },
 
   {
@@ -78,8 +71,7 @@ let drWhoQuiz = [
           "The recorder",
           "The penny whistle",
           "The saxophone",
-      ],
-      "correct": 0
+      ]
   },
 
   {
@@ -88,8 +80,7 @@ let drWhoQuiz = [
           "Slowing down the sound of a flushing toilet",
           "Slowing down the sound of a bear roaring",
           "Recording an actual Yeti",
-      ],
-      "correct": 0
+      ]
   },
 
   {
@@ -98,8 +89,7 @@ let drWhoQuiz = [
           "Fury from the Deep",
           "The Underwater Menace",
           "The Moonbase",
-      ],
-      "correct": 0
+      ]
   },
 
   {
@@ -108,8 +98,7 @@ let drWhoQuiz = [
           "The Three Doctors",
           "The Two Doctors",
           "The Four Doctors",
-      ],
-      "correct": 0
+      ]
   },
 
   {
@@ -118,8 +107,7 @@ let drWhoQuiz = [
           "Patrick Troughton",
           "Ramon Salamander",
           "Frazer Hines",
-      ],
-      "correct": 0
+      ]
   },
 
   {
@@ -128,8 +116,7 @@ let drWhoQuiz = [
           "Spearhead from Space",
           "Inferno",
           "The Ambassadors of Death",
-      ],
-      "correct": 0
+      ]
   },
 
   {
@@ -138,8 +125,7 @@ let drWhoQuiz = [
           "The Green Death",
           "Invasion of the Dinosaurs",
           "The Claws of Axos",
-      ],
-      "correct": 0
+      ]
   },
 
   {
@@ -148,8 +134,7 @@ let drWhoQuiz = [
           "Death to the Daleks",
           "Day of the Daleks",
           "Planet of the Daleks",
-      ],
-      "correct": 0
+      ]
   },
 
   {
@@ -158,8 +143,7 @@ let drWhoQuiz = [
           "Bessie",
           "Nessie",
           "Jessie",
-      ],
-      "correct": 0
+      ]
   },
 
   {
@@ -168,8 +152,7 @@ let drWhoQuiz = [
           "Spearhead from Space",
           "The Claws of Axos",
           "Terror of the Autons",
-      ],
-      "correct": 0
+      ]
   },
 
   {
@@ -178,8 +161,7 @@ let drWhoQuiz = [
           "The Daemons",
           "The Mutants",
           "The Time Warrior",
-      ],
-      "correct": 0
+      ]
   },
 
   {
@@ -188,8 +170,7 @@ let drWhoQuiz = [
           "Rutans",
           "Sea Devils",
           "Ogrons",
-      ],
-      "correct": 0
+      ]
   },
 
   {
@@ -198,8 +179,7 @@ let drWhoQuiz = [
           "Tom Baker",
           "Michael Bentine",
           "Bernard Cribbins",
-      ],
-      "correct": 0
+      ]
   },
 
   {
@@ -208,8 +188,7 @@ let drWhoQuiz = [
           "Lalla Ward",
           "Barbara Windsor",
           "Juliet Landau",
-      ],
-      "correct": 0
+      ]
   },
 
   {
@@ -218,8 +197,7 @@ let drWhoQuiz = [
           "Tharils",
           "Leonids",
           "Krynoids",
-      ],
-      "correct": 0
+      ]
   },
 
   {
@@ -228,8 +206,7 @@ let drWhoQuiz = [
           "Harrison Chase",
           "Harrison Ford",
           "Ben Aaronovitch",
-      ],
-      "correct": 0
+      ]
   },
 
   {
@@ -238,8 +215,7 @@ let drWhoQuiz = [
           "Douglas Adams",
           "Zaphod Beeblebrox",
           "Neil Gaiman",
-      ],
-      "correct": 0
+      ]
   },
 
   {
@@ -248,8 +224,7 @@ let drWhoQuiz = [
           "A companion died",
           "The first Doctor/companion kiss",
           "The first Doctor/alien kiss",
-      ],
-      "correct": 0
+      ]
   },
 
   {
@@ -258,8 +233,7 @@ let drWhoQuiz = [
           "Peter Davison",
           "Richard Griffiths",
           "Eric Saward",
-      ],
-      "correct": 0
+      ]
   },
 
   {
@@ -268,8 +242,7 @@ let drWhoQuiz = [
           "The five Doctors",
           "The three Doctors",
           "The two Doctors",
-      ],
-      "correct": 0
+      ]
   },
 
   {
@@ -278,8 +251,7 @@ let drWhoQuiz = [
           "Concorde",
           "The Wright brother's plane 'Kittyhawk'",
           "An Avro Lancaster World War 2 bomber",
-      ],
-      "correct": 0
+      ]
   },
 
   {
@@ -288,8 +260,7 @@ let drWhoQuiz = [
           "The not we",
           "The others",
           "The outsiders",
-      ],
-      "correct": 0
+      ]
   },
 
   {
@@ -298,8 +269,7 @@ let drWhoQuiz = [
           "Lon",
           "Don",
           "Won",
-      ],
-      "correct": 0
+      ]
   },
 
   {
@@ -308,8 +278,7 @@ let drWhoQuiz = [
           "Colin Baker",
           "Michael Grade",
           "Jon Nathan Turner",
-      ],
-      "correct": 0
+      ]
   },
 
   {
@@ -317,9 +286,8 @@ let drWhoQuiz = [
       "answers": [
           "'Carrot juice'",
           "'Grape juice'",
-          "Apple juice'",
-      ],
-      "correct": 0
+          "'Apple juice'",
+      ]
   },
 
   {
@@ -328,8 +296,7 @@ let drWhoQuiz = [
           "He's the only actor to be fired from the role",
           "He's the only actor to quit the role during filming",
           "He's the only actor to be prosecuted during their tenure",
-      ],
-      "correct": 0
+      ]
   },
 
   {
@@ -338,8 +305,7 @@ let drWhoQuiz = [
           "Terror of the Vervoids",
           "30 seconds to Doomsday",
           "Revenge of The Master",
-      ],
-      "correct": 0
+      ]
   },
 
   {
@@ -348,8 +314,7 @@ let drWhoQuiz = [
           "Alexei Sayle",
           "Ben Elton",
           "Rik Mayall",
-      ],
-      "correct": 0
+      ]
   },
 
   {
@@ -358,8 +323,7 @@ let drWhoQuiz = [
           "Maxil",
           "Lord Cranleigh",
           "Stien",
-      ],
-      "correct": 0
+      ]
   },
 
   {
@@ -368,8 +332,7 @@ let drWhoQuiz = [
           "The Rani",
           "The Master",
           "The Time Meddler",
-      ],
-      "correct": 0
+      ]
   },
 
   {
@@ -378,8 +341,7 @@ let drWhoQuiz = [
           "The spoons",
           "The harmonica",
           "The accordian",
-      ],
-      "correct": 0
+      ]
   },
 
   {
@@ -388,8 +350,7 @@ let drWhoQuiz = [
           "Nicholas Parsons",
           "Les Dennis",
           "Ken Dodd",
-      ],
-      "correct": 0
+      ]
   },
 
   {
@@ -398,8 +359,7 @@ let drWhoQuiz = [
           "Sylvester McCoy",
           "Leonard Nimoy",
           "Paul McGann",
-      ],
-      "correct": 0
+      ]
   },
 
   {
@@ -408,8 +368,7 @@ let drWhoQuiz = [
           "Special weapons Dalek",
           "Reconnaissance Dalek",
           "Emporer Dalek",
-      ],
-      "correct": 0
+      ]
   },
 
   {
@@ -418,80 +377,129 @@ let drWhoQuiz = [
           "'Ace' played by Sophie Aldred",
           "'Mel' played by Bonnie Langford",
           "'Ray' played by Sara Griffiths",
-      ],
-      "correct": 0
+      ]
   },
   
 ]
 
-// timer function for 30 second countdown //
 
-function timer() {
-  if (timeLeft == -1) {
-    document.getElementById("countdown-timer").innerHTML = "0" + timeLeft;
-    clearInterval(timerId);
-    endGame();
-    return
-  } else if (timeLeft >= 10) {
-    document.getElementById("countdown-timer").innerHTML = timeLeft;
-  } else {
-    document.getElementById("countdown-timer").innerHTML = "0" + timeLeft;
-  }
-  rndNum3 = Math.floor(Math.random() * 3);
-  rndNum42 = Math.floor(Math.random() * 42);
-  console.log(timeLeft, rndNum3, rndNum42);
-  timeLeft --;
-  
+function playQuiz() {
 
-}
+    // variables defined before game starts //
 
-function game() {
-  var initialScore = 0;
-  var initialHighScore = 0;
-  console.log(drWhoQuiz[0].question, drWhoQuiz[0].answers[0]);
-  console.log(startedGame);
+    var playingGame = false;
+    var answerButtons;
+    var timeLeft;
+    var timerId;
 
-  var rulesModal = document.getElementById("rulesModal");
-  var rulesBtn = document.getElementById("buttonRules");
-  var rulesSpan = document.getElementsByClassName("close")[0];
-  var buttonStart = document.getElementById("buttonStart");
+    // modal to display rules of the game //
 
-  rulesBtn.onclick = function() {
-    console.log(startedGame);
-    if (startedGame) {
-      return;
+    var rulesModal = document.getElementById("rulesModal");
+    var rulesBtn = document.getElementById("buttonRules");
+    var rulesSpan = document.getElementsByClassName("close")[0];
+    var buttonStart = document.getElementById("buttonStart");
+    rulesBtn.onclick = function() {
+    console.log(playingGame);
+    if (playingGame) {
+        return;
     } else {
-    rulesModal.style.display = "block";
-  }
-
-  rulesSpan.onclick = function() {
-    rulesModal.style.display = "none";
-  }
-
-  window.onclick = function(event) {
-    if (event.target == rulesModal) {
-      rulesModal.style.display = "none";
+        rulesModal.style.display = "block";
     }
-  }
-}
-
-  buttonStart.onclick = function() {
-    if (startedGame) {
-      return;
-      } else {
-      startedGame = true;
-      timerId = setInterval(timer, 1000);
+    
+    rulesSpan.onclick = function() {
+        rulesModal.style.display = "none";
     }
-  }
+    
+    window.onclick = function(event) {
+        if (event.target == rulesModal) {
+            rulesModal.style.display = "none";
+            }
+        }
+    }
+
+    document.querySelectorAll('button').forEach(b=>b.addEventListener('click', answerSelected));
+    function answerSelected(event){
+        answerButtons = document.getElementsByClassName("questionButton");
+
+        //event.target is the button that was clicked //
+
+        var button = event.target;
+        var buttonPressed = button.innerText;
+
+        // what happens when the start button is clicked //
+
+        if (buttonPressed == "Start") {
+            console.log("start button clicked", playingGame);
+            if (playingGame == false) {
+                playingGame = true;
+                console.log("game started =", playingGame);
+                setTimer();
+            }
+
+        // what happens when the rules button is clicked //
+
+        } else if (buttonPressed == "Rules") {
+            if (!playingGame) {
+                console.log("rules button clicked");
+                
+            } else {
+                console.log("cannot show rules when game is in progress");
+            }
+
+        // what happens when the simplify button is clicked //
+
+        } else if (buttonPressed == "Simplify") {
+            console.log("easier button clicked");
+
+        // what happens when an answer button is clicked //
+    
+        } else {
+            for (i=0; i<3; i++) {
+                if (buttonPressed == answerButtons[i].innerText) {
+                    console.log("answer",answerButtons[i].innerText,"clicked");
+                }
+            }
+        }
+    }
+
+    function setTimer() {
+        timeLeft = 30; 
+        timerId = setInterval(timer, 1000);
+    }
+
+    function timer() {
+        if (timeLeft == -1) {
+            document.getElementById("countdown-timer").innerHTML = "00";
+            clearInterval(timerId);
+            endGame();
+    
+        } else if (timeLeft >= 10) {
+            document.getElementById("countdown-timer").innerHTML = timeLeft;
+        } else {
+            document.getElementById("countdown-timer").innerHTML = "0" + timeLeft;
+        }
+        console.log(timeLeft);
+        timeLeft --;
+    }
+
+
+    function endGame() {
+        playingGame = false;
+        console.log("game over loser");  
+    }
+
+
+    
+    buttonStart.onclick = function() {
+        if (playingGame) {
+          return;
+          } else {
+          playingGame = true;
+          timerId = setInterval(timer, 1000);
+        }
+      }
+
+
 }
 
-function endGame() {
-  alert("Game Over");
-}
-
-var startedGame = false;
-let timeLeft = 30;
-game();
-
-
-
+playQuiz();

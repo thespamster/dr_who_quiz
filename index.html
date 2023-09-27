@@ -12,30 +12,30 @@
         <!-- browser tab title and a custom icon for the website -->
 
         <title>30 Seconds to Doomsday</title>
-        <link rel="shortcut icon" href="assets/img/favicon_128.ico">
+        <link rel="shortcut icon" href="assets/img/favicon.ico">
     </head>
     <body id="page-style">
         <h1 class="title-question-style">'30 Seconds to Doomsday'</h1>
         <div id="button-timer-pos">
             <button type="button" id="buttonStart">Start</button>
             <span id="countdown-timer">00</span>
-            <button type=""button id="buttonRules">Rules</button>
+            <button type="button" id="buttonRules">Rules</button>
         </div>
         <div>
-            <h2 class="title-question-style">Are you nerdy enough?</h2>
+            <h2 class="title-question-style" id="currentQuestion">Would you like a jelly baby?</h2>
             <div id="answer-button-pos">
-                <button type="button" class="question-button">A</button><span class="answer-style">answer 1</span>
-                <button type="button" class="question-button">B</button><span class="answer-style">answer 2</span>
-                <button type="button" class="question-button">C</button><span class="answer-style">answer 3</span>
+                <button type="button"  class="questionButton">A</button><span class="answer-style">answer 1</span>
+                <button type="button"  class="questionButton">B</button><span class="answer-style">answer 2</span>
+                <button type="button"  class="questionButton">C</button><span class="answer-style">answer 3</span>
             </div>
             <div id="easier-button-pos">
-                <button id="easier-button">Simplify</button>
+                <button id="easierButton">Simplify</button>
             </div>
         </div>
         <div id="score-pos">
             <p id="score-hiscore-style">
-                <span>Current Score 00</span>
-                <span>High Score 00</span>
+                <span id="currentScore">Current Score 00</span>
+                <span id="highScore">High Score 00</span>
             </p>
         </div>
         <div id="rulesModal" class="modal">
