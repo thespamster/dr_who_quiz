@@ -124,7 +124,7 @@ var drWhoQuiz = [
       "answers": [
           "The Green Death",
           "Invasion of the Dinosaurs",
-          "The Claws of Axos",
+          "The Curse of Peladon",
       ]
   },
 
@@ -378,7 +378,7 @@ var drWhoQuiz = [
           "'Mel' played by Bonnie Langford",
           "'Ray' played by Sara Griffiths",
       ]
-  },
+  }
   
 ]
 
@@ -462,11 +462,14 @@ function playQuiz() {
         }
     }
 
+    // set the 30 second timer function //
+
     function setTimer() {
         timeLeft = 30; 
         timerId = setInterval(timer, 1000);
     }
 
+    // timer function //
     function timer() {
         if (timeLeft == -1) {
             document.getElementById("countdown-timer").innerHTML = "00";
@@ -482,23 +485,12 @@ function playQuiz() {
         timeLeft --;
     }
 
+    // end game function //
 
     function endGame() {
         playingGame = false;
         console.log("game over loser");  
     }
-
-
-    
-    buttonStart.onclick = function() {
-        if (playingGame) {
-          return;
-          } else {
-          playingGame = true;
-          timerId = setInterval(timer, 1000);
-        }
-      }
-
 
 }
 
