@@ -13,10 +13,68 @@ function checkCookie() {
     }
 }
 
-function askQuestion() {
-    console.log("ask question function");
+function askQuestion (questionArray, questionsLeft, questionToAsk) {
+    
+    correctPos = 0;
+    console.log("playing game", questionsLeft, questionToAsk);
+    if (questionsLeft > 0) {
+        easierFlag = false;
+        console.log("easierFlag", easierFlag);
+   
+    // ask a question //
 
+    currentQuestion = document.getElementById("currentQuestion");
+    currentQuestion.innerHTML = questionArray[questionToAsk].question;
+    
+    // randomise answers //
+
+    answerArray = [,,];
+    for (i = 0; i < 3; i++) {
+        rndNum3 = Math.floor(Math.random() * 3);
+        if (answerArray[rndNum3] == undefined) {
+            answerArray[rndNum3] = questionArray[questionToAsk].answers[i];
+            console.log("answerArray", answerArray);
+        } else {
+            i--;
+        }
+    }
+
+    // get the correct answer //
+
+    correctAnswer = questionArray[questionToAsk].answers[0];
+    console.log("correctAnswer", correctAnswer);
+
+    // display answers //
+
+    correctPos = displayAnswers(answerArray, correctPos);
+
+    // remove asked question from array //
+
+    questionArray.splice(questionToAsk, 1);
+
+    //reduce number of questions left by one //
+
+    questionsLeft --;
 }
+return;
+}
+
+function displayAnswers(answerArray, correctPos) {
+    answerOne = document.getElementById("answerOne");
+    answerTwo = document.getElementById("answerTwo");
+    answerThree = document.getElementById("answerThree");
+    answerOne.innerHTML = answerArray[0];
+    answerTwo.innerHTML = answerArray[1];
+    answerThree.innerHTML = answerArray[2];
+    for (i=0; i < 3; i++) {
+        if (answerArray[i] == correctAnswer) {
+            correctPos = i;
+        }
+    console.log("correctPos", correctPos);
+    }
+    return correctPos;
+}
+
 
 function playQuiz() {
 
@@ -87,7 +145,8 @@ function playQuiz() {
                 playingGame = true;
                 console.log("game started =", playingGame);
                 setTimer();
-                askQuestion();
+                questionToAsk = Math.floor(Math.random() * questionsLeft); // random number to select question to be asked //
+                askQuestion(questionArray, questionsLeft, questionToAsk);
             }
 
         // what happens when the simplify button is clicked //
