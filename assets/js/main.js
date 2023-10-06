@@ -47,6 +47,7 @@ function askQuestion (questionArray, questionsLeft, questionToAsk) {
     // display answers //
 
     correctPos = displayAnswers(answerArray, correctPos);
+    console.log("THIS ONE", correctPos);
 
     // remove asked question from array //
 
@@ -56,8 +57,8 @@ function askQuestion (questionArray, questionsLeft, questionToAsk) {
 
     questionsLeft --;
 }
-return;
-}
+return correctPos;
+} 
 
 function displayAnswers(answerArray, correctPos) {
     answerOne = document.getElementById("answerOne");
@@ -70,25 +71,96 @@ function displayAnswers(answerArray, correctPos) {
         if (answerArray[i] == correctAnswer) {
             correctPos = i;
         }
-    console.log("correctPos", correctPos);
     }
+    console.log("display answers function correctPos", correctPos);
     return correctPos;
 }
 
+function simplifyAnswers(correctPos) {
+    
+            questionToRemove = Math.floor(Math.random() * 2);
+            console.log("easier button clicked", correctAnswer, "questionToRemove", questionToRemove);
+            while (questionToRemove == correctPos) {
+                questionToRemove = Math.floor(Math.random() * 2);
+                console.log("questionToRemove", questionToRemove);
+            }
+            
+            for (i = 0; i < 3; i++) {
+                if (answerArray[i] != correctAnswer && i == questionToRemove) {
+                    answerArray[i] = "";
+                    console.log("answerArray", answerArray);
+                }
+            }
 
-function playQuiz() {
+    correctPos = displayAnswers(answerArray, correctPos);        
+    console.log("simplify answers function", answerArray, correctPos);
+    return answerArray;
+}
+
+function setInitialScreen() {
+    document.getElementById("currentQuestion").innerHTML = "Press Start to play or Rules for how to play the quiz.";
+    document.getElementById("answerOne").innerHTML = "";
+    document.getElementById("answerTwo").innerHTML = "";
+    document.getElementById("answerThree").innerHTML = "";
+    document.getElementById("countdownTimer").innerHTML = "00";
+    document.getElementById("currentScore").innerHTML = "00";
+    document.getElementById("highScore").innerHTML = document.cookie;
+}
+
+// set the 30 second timer function //
+
+function setTimer() { 
+    timeLeft=30
+    timerRunning = setInterval(timer, 1000);
+}
+
+// the actual timer function //
+function timer() {
+    if (timeLeft <0) {
+        document.getElementById("countdownTimer").innerHTML = "00";
+        endGame();
+
+    } else if (timeLeft >= 10) {
+        document.getElementById("countdownTimer").innerHTML = timeLeft;
+    } else {
+        document.getElementById("countdownTimer").innerHTML = "0" + timeLeft;
+    }
+    console.log(timeLeft);
+    timeLeft --;
+}
+
+// end game function //
+
+function endGame() {
+    console.log("end game", timerRunning);
+    clearInterval(timerRunning);
+    console.log("after clear interval", timerRunning);
+    console.log("endgame function, you lose!"); 
+    setInitialScreen();
+    playQuiz(true);
+}
+
+function playQuiz(playingGame) {
+    
+    console.log("playQuiz function", playingGame);
+    if (playingGame) {
+        console.log("clearing event listeners!!!!");
+        document.querySelectorAll('button').forEach(b=>b.removeEventListener('click', answerSelected));
+    }
 
     // variables defined before game starts //
 
     var playingGame = false; // is a game in progress? //
+    var easierFlag = false;  // has the simplify button been clicked? //
     var answerButtons;       // array of answer buttons //
-    var timeLeft;            // time left on the timer //
-    var timerRunning;        // sets the timer running //
-    var questionsLeft = 42;
-    var questionToAsk = Math.floor(Math.random() * 42);
-    var currentScore = 0;
-    var highScore = 0;
-
+            // sets the timer running //
+    var questionsLeft = 42; // number of questions left to ask //
+    var questionToAsk = Math.floor(Math.random() * 42); // random number to select question to be asked at start of quiz//
+    var currentScore = 0;   // current score //
+    var highScore = 0;    // high score //
+    var answerArray = [,,]; // initial array to hold answers //
+    var correctPos;        // position of correct answer in answerArray //
+    
     // array of questions and answers fetched from json file //
 
     let questionArray = [];
@@ -98,7 +170,6 @@ function playQuiz() {
     }).then (jsonQuestions => {
         console.log(jsonQuestions);
         questionArray = jsonQuestions;
-        console.log(questionArray[41].question, questionArray[41].answers[0]);
     })
     .catch(err => {
         console.error(err);
@@ -129,6 +200,9 @@ function playQuiz() {
     }
 
     document.querySelectorAll('button').forEach(b=>b.addEventListener('click', answerSelected));
+
+    
+
     function answerSelected(event){
         answerButtons = document.getElementsByClassName("questionButton");
 
@@ -146,15 +220,17 @@ function playQuiz() {
                 console.log("game started =", playingGame);
                 setTimer();
                 questionToAsk = Math.floor(Math.random() * questionsLeft); // random number to select question to be asked //
-                askQuestion(questionArray, questionsLeft, questionToAsk);
+                correctPos = askQuestion(questionArray, questionsLeft, questionToAsk);
+                
             }
 
         // what happens when the simplify button is clicked //
 
         } else if (buttonPressed == "Simplify") {
-            console.log("easier button clicked");
-            if (playingGame) {
-                simplifyAnswers();
+            console.log("easier button clicked", playingGame, easierFlag, correctPos);
+            if (playingGame && !easierFlag){
+                easierFlag = true;
+                answerArray = simplifyAnswers(correctPos);
             }
 
         // what happens when an answer button is clicked //
@@ -162,50 +238,25 @@ function playQuiz() {
         } else {
             for (i=0; i<3; i++) {
                 if (buttonPressed == answerButtons[i].innerText) {
-                    console.log("answer",answerButtons[i].innerText,"clicked");
+                    console.log("answer",answerButtons[i].innerText,"clicked",  correctPos);
+                    if (correctPos == i && playingGame) {
+                        currentScore ++;
+                        console.log("correct answer", currentScore);
+                        contGame();
+                    } else if (correctPos != i && answerArray[i] != "" && playingGame) {
+                        console.log("wrong answer", answerArray[i], correctPos);
+                        endGame();
+                    }
                 }
             }
         }
-    }
+    } 
 
-    // set the 30 second timer function //
-
-    function setTimer() {
-        timeLeft = 30; 
-        timerRunning = setInterval(timer, 1000);
-    }
-
-    // the actual timer function //
-    function timer() {
-        if (timeLeft == -1) {
-            document.getElementById("countdownTimer").innerHTML = "00";
-            clearInterval(timerRunning);
-            endGame();
     
-        } else if (timeLeft >= 10) {
-            document.getElementById("countdownTimer").innerHTML = timeLeft;
-        } else {
-            document.getElementById("countdownTimer").innerHTML = "0" + timeLeft;
-        }
-        console.log(timeLeft);
-        timeLeft --;
-    }
-
-    // simplifies answers by removing one incorrect answer //
-
-    function simplifyAnswers() {
-        console.log("simplify answers function");
-    }
-
-    // end game function //
-
-    function endGame() {
-        playingGame = false;
-        console.log("game over loser");  
-    }
 
 }
 
 
 const pause = setTimeout(checkCookie, 500);
+setInitialScreen();
 playQuiz();
