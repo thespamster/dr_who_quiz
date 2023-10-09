@@ -144,11 +144,11 @@
     },
   
     {
-        "question": "The Autons apppeared in the first story of regenerated Who in 2005 but they appeared first in the third Doctor adventure called?",
+        "question": "UNIT were a big part of the third Doctor's adventures, what is the professional name of the actor who played the role of Sgt. Benton",
         "answers": [
-            "Spearhead from Space",
-            "The Claws of Axos",
-            "Terror of the Autons"
+            "John Levene",
+            "Ian Levine",
+            "Richard Franklin"
         ]
     },
   
@@ -171,7 +171,7 @@
     },
   
     {
-        "question": "Which actor portrayed the Fourth Doctor?",
+        "question": "Starring in his first adventure 'Robot' back in December 1974 which actor portrayed the Fourth Doctor?",
         "answers": [
             "Tom Baker",
             "Michael Bentine",
@@ -216,16 +216,16 @@
     },
   
     {
-        "question": "In the fifth Doctor's story 'Earthshock' something happened in the show that had never happend before. What was it?",
+        "question": "In the fifth Doctor's story 'Earthshock' something happened in the show that shocked viewers at the time. What was it?",
         "answers": [
             "A companion died",
-            "The first Doctor/companion kiss",
-            "The first Doctor/alien kiss"
+            "The first time the Doctor kissed their companion",
+            "The first time the Doctor kissed an alien"
         ]
     },
   
     {
-        "question": "Which actor portrayed the fifth Doctor?",
+        "question": "Starring in his first adventure 'Castrovalva' in January 1982 which actor portrayed the fifth Doctor?",
         "answers": [
             "Peter Davison",
             "Richard Griffiths",
@@ -261,7 +261,7 @@
     },
   
     {
-        "question": "This fifth Doctor adventure saw the return of the Mara and an appearance by a young Martin Clunes. What was his character called?",
+        "question": "The fifth Doctor adventure 'Snakedance' saw the return of the Mara and an appearance by a young Martin Clunes. What was his character called?",
         "answers": [
             "Lon",
             "Don",
@@ -270,7 +270,7 @@
     },
   
     {
-        "question": "Which actor portrayed the sixth Doctor?",
+        "question": "Starring in his first adventure 'The Twin Dilemma' in 1984 which actor portrayed the sixth Doctor?",
         "answers": [
             "Colin Baker",
             "Michael Grade",
@@ -351,7 +351,7 @@
     },
   
     {
-        "question": "Which actor portrayed the seventh Doctor until the end of the classic era in 1989?",
+        "question": "Which actor portrayed the seventh Doctor starring in the final adventure of the classic series 'Survival' in November 1989?",
         "answers": [
             "Sylvester McCoy",
             "Leonard Nimoy",
