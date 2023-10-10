@@ -8,7 +8,7 @@
     background-size: cover;
     background-repeat: repeat;
     background-position: center;
-    height: 100dvh;
+    min-height: 100dvh;
     width: 100%;
     margin: 0;
     padding: 0;  
@@ -111,6 +111,7 @@
     font-family: 'Roboto', sans-serif;
     font-size: 2em;
     font-weight: bold;  
+    z-index: 1;
 }
 
 #easier-button-pos {

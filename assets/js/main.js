@@ -7,7 +7,7 @@ var answerButtons;       // array of answer buttons //
 var questionsLeft = 42; // number of questions left to ask //
 var questionToAsk = Math.floor(Math.random() * 42); // random number to select question to be asked at start of quiz//
 var currentScore = 0;   // current score //
-var highScore = 0;    // high score //
+var highScore;    // high score //
 let answerArray = [,,]; // initial array to hold answers //
 var correctPos;        // position of correct answer in answerArray //
 let questionArray = []; 
@@ -15,19 +15,22 @@ var scoreCookie = document.cookie;
 var incorrectPos;      // position of incorrect answer in answerArray //
 var highlightedButton1; // button to be highlighted when correct answer selected //
 var highlightedButton2; // button to be highlighted when incorrect answer selected //
+// var i;               selected answer button //
 
 // set event timers for buttons //
 
 document.querySelectorAll('button').forEach(b=>b.addEventListener('click', answerSelected));
 
     function answerSelected(event){
+        event.preventDefault()
         answerButtons = document.getElementsByClassName("questionButton");
 
         //event.target is the button that was clicked //
 
         var button = event.target;
         var buttonPressed = button.innerText;
-        console.log("BUTTON PRESSED is", buttonPressed);
+        console.log("BUTTON PRESSED is", buttonPressed, playingGame, easierFlag);
+
         // what happens when the start button is clicked //
 
         if (buttonPressed == "Start") {
@@ -76,13 +79,18 @@ document.querySelectorAll('button').forEach(b=>b.addEventListener('click', answe
 // function that checks for hi-score cookie, asks for permisiion if there isn't one //
 
 function checkCookie() {
+    scoreCookie = document.cookie;
     if (scoreCookie == "") {
-        alert("This site uses a cookie to store your high score. Please click OK to accept this cookie and play the quiz.");
-        document.cookie = "highScore=0; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/";
+        alert("This site uses a local cookie to store your high score. Please click OK to accept this cookie and play the quiz.");
+        scoreCookie = "highScore,0, expires=Sat, 23 Nov 9999 23:59:59 GMT; path=/";
         console.log("cookie:", scoreCookie);
     } else {
-        console.log("cookie already set", scoreCookie);
-        document.cookie = "highScore=00; expires=Sat, 23 Nov 1963 23:59:59 GMT; path=/";
+        scoreCookie = document.cookie.split('=')[1];
+        tempScore = scoreCookie.split(',');
+        console.log("cookie already set", tempScore[0]);
+        scoreCookie = "highScore,0, expires=Sat, 23 Nov 1963 23:59:59 GMT; path=/";
+        // highScore = tempScore[1]; //
+        highScore = 10;
     }
 }
 
@@ -178,7 +186,7 @@ function setInitialScreen() {
     document.getElementById("answerThree").innerHTML = "";
     document.getElementById("countdownTimer").innerHTML = "00";
     document.getElementById("currentScore").innerHTML = "Current Score 00";
-    document.getElementById("highScore").innerHTML = document.cookie;
+    document.getElementById("highScore").innerHTML = highScore;
 }
 
 // set the 30 second timer function //
@@ -229,6 +237,12 @@ function contGame() {
         currentScore ++;
     } else {
         currentScore +=2;
+    }
+    if (currentScore > highScore) {
+        highScore = currentScore;
+        document.cookie = "highScore," + highScore + "; expires=Sat, 23 Nov 9999 23:59:59 GMT; path=/";
+        console.log("cookie set", document.cookie);
+        document.getElementById("highScore").innerHTML = "High Score "+highScore;
     }
     console.log("current score", currentScore);
     scoreDisplay = document.getElementById("currentScore");
