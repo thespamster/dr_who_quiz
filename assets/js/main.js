@@ -7,7 +7,7 @@ var answerButtons;       // array of answer buttons //
 var questionsLeft = 42; // number of questions left to ask //
 var questionToAsk = Math.floor(Math.random() * 42); // random number to select question to be asked at start of quiz//
 var currentScore = 0;   // current score //
-var highScore;    // high score //
+var highScore = 0;    // high score //
 let answerArray = [,,]; // initial array to hold answers //
 var correctPos;        // position of correct answer in answerArray //
 let questionArray = []; 
@@ -80,7 +80,7 @@ document.querySelectorAll('button').forEach(b=>b.addEventListener('click', answe
 
 function checkCookie() {
     scoreCookie = document.cookie;
-    if (scoreCookie == "") {
+    /* if (scoreCookie == "") {
         alert("This site uses a local cookie to store your high score. Please click OK to accept this cookie and play the quiz.");
         scoreCookie = "highScore,0, expires=Sat, 23 Nov 9999 23:59:59 GMT; path=/";
         console.log("cookie:", scoreCookie);
@@ -90,8 +90,10 @@ function checkCookie() {
         console.log("cookie already set", tempScore[0]);
         scoreCookie = "highScore,0, expires=Sat, 23 Nov 1963 23:59:59 GMT; path=/";
         // highScore = tempScore[1]; //
-        highScore = 10;
-    }
+        
+    } */
+    // highScore = 10; //
+    document.getElementById("highScore").innerHTML = "High Score 0"+highScore;
 }
 
 function askQuestion () {
@@ -159,25 +161,25 @@ function displayAnswers() {
 }
 
 function simplifyAnswers() {
-    
+    questionToRemove = Math.floor(Math.random() * 2);
+    console.log("easier button clicked", correctAnswer, "questionToRemove", questionToRemove);
+        while (questionToRemove == correctPos) {
             questionToRemove = Math.floor(Math.random() * 2);
-            console.log("easier button clicked", correctAnswer, "questionToRemove", questionToRemove);
-            while (questionToRemove == correctPos) {
-                questionToRemove = Math.floor(Math.random() * 2);
-                console.log("questionToRemove", questionToRemove);
+            console.log("questionToRemove", questionToRemove);
+        }
+        for (i = 0; i < 3; i++) {
+            if (answerArray[i] != correctAnswer && i == questionToRemove) {
+                 answerArray[i] = "";
+                console.log("answerArray", answerArray);
             }
-            
-            for (i = 0; i < 3; i++) {
-                if (answerArray[i] != correctAnswer && i == questionToRemove) {
-                    answerArray[i] = "";
-                    console.log("answerArray", answerArray);
-                }
-            }
+        }
 
-    displayAnswers();        
-    console.log("simplify answers function", answerArray, correctPos);
+displayAnswers();        
+console.log("simplify answers function", answerArray, correctPos);
    
 }
+
+// how the pregame screen looks after the first game has ended //
 
 function setInitialScreen() {
     document.getElementById("currentQuestion").innerHTML = "Press Start to play or Rules for how to play the quiz.";
@@ -186,7 +188,12 @@ function setInitialScreen() {
     document.getElementById("answerThree").innerHTML = "";
     document.getElementById("countdownTimer").innerHTML = "00";
     document.getElementById("currentScore").innerHTML = "Current Score 00";
-    document.getElementById("highScore").innerHTML = highScore;
+    if (highScore < 10) {
+        document.getElementById("highScore").innerHTML = "High Score 0"+highScore;
+    } else {
+        document.getElementById("highScore").innerHTML = "High Score "+highScore;
+    }
+    
 }
 
 // set the 30 second timer function //
@@ -198,11 +205,11 @@ function setTimer() {
 }
 
 // the actual timer function //
+
 function timer() {
     if (timeLeft <0) {
         document.getElementById("countdownTimer").innerHTML = "00";
         endGame();
-
     } else if (timeLeft >= 10) {
         document.getElementById("countdownTimer").innerHTML = timeLeft;
     } else {
@@ -220,6 +227,10 @@ function endGame() {
     console.log("after clear interval", timerRunning);
     console.log("endgame function, you lose!"); 
     setInitialScreen();
+    if (currentScore === highScore) {
+        document.getElementById("currentQuestion").innerHTML = "Congratulations, you have a new high score of " + currentScore + "! Play again to see if you can beat it.";
+    
+    }
      playingGame = false; // is a game in progress? //
      easierFlag = false;  // has the simplify button been clicked? //     
      questionsLeft = 42; // number of questions left to ask //
@@ -230,9 +241,6 @@ function endGame() {
 }
 
 function contGame() {
-    console.log("another question", timerRunning);
-    
-    console.log("after clear interval", timerRunning);
     if (easierFlag) {
         currentScore ++;
     } else {
@@ -240,9 +248,14 @@ function contGame() {
     }
     if (currentScore > highScore) {
         highScore = currentScore;
-        document.cookie = "highScore," + highScore + "; expires=Sat, 23 Nov 9999 23:59:59 GMT; path=/";
-        console.log("cookie set", document.cookie);
-        document.getElementById("highScore").innerHTML = "High Score "+highScore;
+        // document.cookie = "highScore," + highScore + "; expires=Sat, 23 Nov 9999 23:59:59 GMT; path=/"; //
+        // console.log("cookie set", document.cookie); //
+        if (highScore < 10) {
+            document.getElementById("highScore").innerHTML = "High Score 0"+highScore;
+        } else {
+            document.getElementById("highScore").innerHTML = "High Score "+highScore;
+        }
+        
     }
     console.log("current score", currentScore);
     scoreDisplay = document.getElementById("currentScore");
@@ -256,48 +269,47 @@ function contGame() {
     askQuestion();
 }
 
-function highlightAnswers() {
- if (incorrectPos == -1) {
-    clearInterval(timerRunning);
-    highlightedButton1 = answerButtons[correctPos]
-    highlightedButton1.style.backgroundColor = "green";
-    highlightedButton2 = answerButtons[correctPos]
-    setTimeout (resetButtonColour, 1000);
- } else {
-    clearInterval(timerRunning);
-    highlightedButton1 = answerButtons[correctPos]
-    highlightedButton1.style.backgroundColor = "green";
-    highlightedButton2 = answerButtons[incorrectPos]
-    highlightedButton2.style.backgroundColor = "red";
-    setTimeout (resetButtonColour, 3000);
- }
+// highlight correct(in green)  and incorrect(in red) answers //
 
+function highlightAnswers() {
+    if (incorrectPos == -1) {
+        clearInterval(timerRunning);
+        highlightedButton1 = answerButtons[correctPos]
+        highlightedButton1.style.backgroundColor = "green";
+        highlightedButton2 = answerButtons[correctPos]
+        setTimeout (resetButtonColour, 1000);
+    } else {
+        clearInterval(timerRunning);
+        highlightedButton1 = answerButtons[correctPos]
+        highlightedButton1.style.backgroundColor = "green";
+        highlightedButton2 = answerButtons[incorrectPos]
+        highlightedButton2.style.backgroundColor = "red";
+        setTimeout (resetButtonColour, 3000);
+    }
 }
 
 function resetButtonColour() {
     highlightedButton1.style.backgroundColor = "black";
-    highlightedButton2.style.backgroundColor = "black";
-    
+    highlightedButton2.style.backgroundColor = "black";  
 }
 
+// main game section //
 
+function mainGameSection() {
 
-        // main game section //
-
-        function mainGameSection() {
-            // array of questions and answers fetched from json file //
+    // array of questions and answers fetched from json file //
         
-            questionArray = [];
-            fetch("./assets/questions.json")
-            .then(res => {
-                return res.json();
-            }).then (jsonQuestions => {
-                questionArray = jsonQuestions;
-                console.log(questionArray);
-            })
-            .catch(err => {
-                console.error(err);
-            });
+    questionArray = [];
+        fetch("./assets/questions.json")
+        .then(res => {
+            return res.json();
+        }).then (jsonQuestions => {
+            questionArray = jsonQuestions;
+            console.log(questionArray);
+        })
+        .catch(err => {
+            console.error(err);
+        });
            
     // modal to display rules of the game //
 
@@ -311,11 +323,9 @@ function resetButtonColour() {
     } else {
         rulesModal.style.display = "block";
     }
-    
     rulesSpan.onclick = function() {
         rulesModal.style.display = "none";
     }
-    
     window.onclick = function(event) {
         if (event.target == rulesModal) {
             rulesModal.style.display = "none";
