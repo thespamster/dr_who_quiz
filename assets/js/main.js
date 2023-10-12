@@ -10,8 +10,7 @@ var currentScore = 0;   // current score //
 var highScore = 0;    // high score //
 let answerArray = [,,]; // initial array to hold answers //
 var correctPos;        // position of correct answer in answerArray //
-let questionArray = []; 
-var scoreCookie = document.cookie;
+let questionArray = []; // array of questions //
 var incorrectPos;      // position of incorrect answer in answerArray //
 var highlightedButton1; // button to be highlighted when correct answer selected //
 var highlightedButton2; // button to be highlighted when incorrect answer selected //
@@ -83,7 +82,7 @@ function checkCookie() {
     console.log("cookie", scoreCookie);
     if (scoreCookie == "") {
         alert("This site uses a local cookie to store your high score. Please click OK to accept this cookie and play the quiz.");
-        document.cookie = "highScore=0";
+        document.cookie = "highScore=0; expires=Sat, 23 Nov 3000 12:00:00 UTC";
         highScore = 0;
         console.log("cookie:", scoreCookie);
     } else {
@@ -104,7 +103,7 @@ function checkCookie() {
         console.log("cookie set but has no value");
         highScore = 0;
         document.getElementById("highScore").innerHTML = "High Score 0"+highScore;
-        document.cookie = "highScore=0";
+        document.cookie = "highScore=0; expires=Sat, 23 Nov 3000 12:00:00 UTC";
         }
     
     }   
@@ -243,9 +242,10 @@ function endGame() {
     setInitialScreen();
     if (currentScore === highScore) {
         document.getElementById("currentQuestion").innerHTML = "Congratulations, you have a new high score of " + currentScore + "! Play again to see if you can beat it.";
-    
+        document.cookie = "highScore=0; expires=Sat, 23 Nov 3000 12:00:00 UTC";
+        document.cookie = "highScore="+highScore+"; expires=Sat, 23 Nov 3000 12:00:00 UTC";
     }
-    document.cookie = "highScore="+highScore;
+    
     playingGame = false; // is a game in progress? //
     easierFlag = false;  // has the simplify button been clicked? //     
     questionsLeft = 42; // number of questions left to ask //
