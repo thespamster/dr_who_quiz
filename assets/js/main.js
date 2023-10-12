@@ -80,20 +80,34 @@ document.querySelectorAll('button').forEach(b=>b.addEventListener('click', answe
 
 function checkCookie() {
     scoreCookie = document.cookie;
-    /* if (scoreCookie == "") {
+    console.log("cookie", scoreCookie);
+    if (scoreCookie == "") {
         alert("This site uses a local cookie to store your high score. Please click OK to accept this cookie and play the quiz.");
-        scoreCookie = "highScore,0, expires=Sat, 23 Nov 9999 23:59:59 GMT; path=/";
+        document.cookie = "highScore=0";
+        highScore = 0;
         console.log("cookie:", scoreCookie);
     } else {
-        scoreCookie = document.cookie.split('=')[1];
-        tempScore = scoreCookie.split(',');
-        console.log("cookie already set", tempScore[0]);
-        scoreCookie = "highScore,0, expires=Sat, 23 Nov 1963 23:59:59 GMT; path=/";
-        // highScore = tempScore[1]; //
-        
-    } */
-    // highScore = 10; //
-    document.getElementById("highScore").innerHTML = "High Score 0"+highScore;
+        scoreScoreCookie = document.cookie.split('=');
+        tempScore = scoreScoreCookie[1];
+        console.log("tempScore", tempScore);
+        if ( tempScore !== undefined) {
+        tS = tempScore.split(';');
+        console.log("tS", tS[0]);
+        console.log("cookie already set", scoreCookie, "TEMP", tempScore);
+        highScore = tS[0];
+        if (highScore < 10) {
+            document.getElementById("highScore").innerHTML = "High Score 0"+highScore;
+            } else {
+            document.getElementById("highScore").innerHTML = "High Score "+highScore;
+            }
+        } else {
+        console.log("cookie set but has no value");
+        highScore = 0;
+        document.getElementById("highScore").innerHTML = "High Score 0"+highScore;
+        document.cookie = "highScore=0";
+        }
+    
+    }   
 }
 
 function askQuestion () {
@@ -231,13 +245,14 @@ function endGame() {
         document.getElementById("currentQuestion").innerHTML = "Congratulations, you have a new high score of " + currentScore + "! Play again to see if you can beat it.";
     
     }
-     playingGame = false; // is a game in progress? //
-     easierFlag = false;  // has the simplify button been clicked? //     
-     questionsLeft = 42; // number of questions left to ask //
-     questionToAsk = Math.floor(Math.random() * 42); // random number to select question to be asked at start of quiz//
-     currentScore = 0;   // current score //
-     answerArray = [,,]; // initial array to hold answers //
-     console.log("resetting to allow a new game to start");
+    document.cookie = "highScore="+highScore;
+    playingGame = false; // is a game in progress? //
+    easierFlag = false;  // has the simplify button been clicked? //     
+    questionsLeft = 42; // number of questions left to ask //
+    questionToAsk = Math.floor(Math.random() * 42); // random number to select question to be asked at start of quiz//
+    currentScore = 0;   // current score //
+    answerArray = [,,]; // initial array to hold answers //
+    console.log("resetting to allow a new game to start");
 }
 
 function contGame() {
