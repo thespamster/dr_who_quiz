@@ -75,7 +75,6 @@ function answerSelected(event){
 // function that checks for hi-score cookie, asks for permisiion if there isn't one //
 
 function checkCookie() {
-<<<<<<< HEAD
 
   // first try to get the high score cookie //
 
@@ -92,60 +91,22 @@ function checkCookie() {
     document.cookie = "highScore=0; expires=Sat, 23 Nov 3000 12:00:00 UTC";
     highScore = 0;
     console.log("cookie:", hiScoreCookie);
-  } else {
-
+  
     // if it does then get the value and set the high score to it and write it into the html to display it //
 
+  } else {
     partScoreCookie = document.cookie.split('=');
-    tempScore = partScoreCookie[1];
-    console.log("tempScore", tempScore);
-    if ( tempScore !== undefined) {
-      storedHighScore = tempScore.split(';');
-      console.log("storedHighScore", storedHighScore[0]);
-      console.log("cookie already set", hiScoreCookie, "tempScore", tempScore);
-      highScore = storedHighScore[0];
-      if (highScore < 10) {
-=======
-    console.log("cookie", document.cookie);
-    if (scoreCookie == "") {
-        alert("This site uses a local cookie to store your high score. Please click OK to accept this cookie and play the quiz.");
-        document.cookie = "highScore=0; expires=Sat, 23 Nov 3000 12:00:00 UTC";
-        highScore = 0;
-        console.log("cookie:", document.cookie);
-    } else {
-        scoreCookie = document.cookie.split('=');
-        tempScore = scoreCookie[1];
-        console.log("tempScore", tempScore);
-        if ( tempScore !== undefined) {
-        tS = tempScore.split(';');
-        console.log("tS", tS[0]);
-        console.log("cookie already set", document.cookie, "TEMP", tempScore);
-        highScore = tS[0];
-        if (highScore < 10) {
-            document.getElementById("highScore").innerHTML = "High Score 0"+highScore;
-            } else {
-            document.getElementById("highScore").innerHTML = "High Score "+highScore;
-            }
-        } else {
-        console.log("cookie set but has no value");
-        highScore = 0;
->>>>>>> fca66cd31e8a8e91bd78739597261919101e7246
-        document.getElementById("highScore").innerHTML = "High Score 0"+highScore;
+    setHiScore = partScoreCookie[1];
+    console.log("setHiScore", setHiScore);  
+    highScore = setHiScore;
+    if (highScore < 10) {
+      document.getElementById("highScore").innerHTML = "High Score 0"+highScore;
       } else {
         document.getElementById("highScore").innerHTML = "High Score "+highScore;
       }
-    } else {
-
-      // if the cookie exists but has no value then set it to 0 //
-
-      console.log("cookie set but has no value");
-      highScore = 0;
-      document.getElementById("highScore").innerHTML = "High Score 0"+highScore;
-      document.cookie = "highScore=0; expires=Sat, 23 Nov 3000 12:00:00 UTC";
-    }
-  }   
+  } 
 }
-
+             
 function askQuestion () {
   correctPos = 0;
   console.log("playing game", questionsLeft, questionToAsk);
