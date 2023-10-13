@@ -79,21 +79,20 @@ document.querySelectorAll('button').forEach(b=>b.addEventListener('click', answe
 // function that checks for hi-score cookie, asks for permisiion if there isn't one //
 
 function checkCookie() {
-    scoreCookie = document.cookie;
-    console.log("cookie", scoreCookie);
+    console.log("cookie", document.cookie);
     if (scoreCookie == "") {
         alert("This site uses a local cookie to store your high score. Please click OK to accept this cookie and play the quiz.");
         document.cookie = "highScore=0";
         highScore = 0;
-        console.log("cookie:", scoreCookie);
+        console.log("cookie:", document.cookie);
     } else {
-        scoreScoreCookie = document.cookie.split('=');
-        tempScore = scoreScoreCookie[1];
+        scoreCookie = document.cookie.split('=');
+        tempScore = scoreCookie[1];
         console.log("tempScore", tempScore);
         if ( tempScore !== undefined) {
         tS = tempScore.split(';');
         console.log("tS", tS[0]);
-        console.log("cookie already set", scoreCookie, "TEMP", tempScore);
+        console.log("cookie already set", document.cookie, "TEMP", tempScore);
         highScore = tS[0];
         if (highScore < 10) {
             document.getElementById("highScore").innerHTML = "High Score 0"+highScore;
