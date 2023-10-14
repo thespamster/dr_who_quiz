@@ -4,7 +4,7 @@
 
 #page-style {
     background-color: rgb(0, 56, 101);
-    background-image: url("/assets/img/question_mark_background.webp"); 
+    background-image: url("../img/question_mark_background.webp"); 
     background-size: cover;
     background-repeat: repeat;
     background-position: center;
@@ -116,8 +116,8 @@
 
 #easier-button-pos {
     display: flex;
-    justify-content: center;
     position: relative;
+    justify-content: center;
     margin: 75px 0;  
 }
 

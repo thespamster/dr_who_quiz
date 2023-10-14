@@ -87,7 +87,7 @@ function checkCookie() {
 
     // if it doesn't then create it and set it to 0 //
 
-    alert("This site uses a local cookie to store your high score. Please click OK to accept this cookie and play the quiz.");
+    alert("This site uses a cookie to store your high score. Please click OK to accept this cookie and play the quiz.");
     document.cookie = "highScore=0; expires=Sat, 23 Nov 3000 12:00:00 UTC";
     highScore = 0;
     console.log("cookie:", hiScoreCookie);
