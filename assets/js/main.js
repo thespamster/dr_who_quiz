@@ -24,6 +24,7 @@ var standardButtonClickSound = new Audio("assets/sounds/mixkit-classic-click-111
 var simplifyButtonSound = new Audio("assets/sounds/mixkit-game-magic-hint-962.wav");
 var timerClickSound = new Audio("assets/sounds/mixkit-interface-click-1126.wav");
 var newHighScoreSound = new Audio("assets/sounds/mixkit-end-of-show-clapping-crowd-477.wav");
+var endGameSound = new Audio("assets/sounds/mixkit-wrong-answer-fail-notification-946.wav");
 
 // set event timers for buttons //
 
@@ -251,6 +252,7 @@ function timer() {
   if (timeLeft <0) {
     timerClickSound.pause();
     timerClickSound.currentTime = 0;
+    endGameSound.play();
     document.getElementById("countdownTimer").innerHTML = "00";
     endGame();
   } else if (timeLeft >= 10) {
@@ -273,9 +275,15 @@ function endGame() {
   console.log("after clear interval", timerRunning);
   console.log("endgame function, you lose!"); 
   setInitialScreen();
+
+if (currentScore <10) {
+  document.getElementById("currentQuestion").innerHTML = "You scored 0"+currentScore+". Probably need to reverse the polarity of the neutron flow. Press Start to play again.";
+} else {
+  document.getElementById("currentQuestion").innerHTML = "You scored "+currentScore+". Well done, worthy of a reward. Would you like a jelly baby? Press Start to play again.";
+}
   if (currentScore === highScore) {
     newHighScoreSound.play();
-    document.getElementById("currentQuestion").innerHTML = "Congratulations, you have a new high score of " + currentScore + "! Play again to see if you can beat it.";
+    document.getElementById("currentQuestion").innerHTML = "Congratulations! You have a new high score of " + currentScore + ". Play again to see if you can beat it.";
     document.cookie = "highScore=0; expires=Sat, 23 Nov 3000 12:00:00 UTC";
     document.cookie = "highScore="+highScore+"; expires=Sat, 23 Nov 3000 12:00:00 UTC";
   }
