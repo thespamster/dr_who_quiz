@@ -15,6 +15,16 @@ var incorrectPos;      // position of incorrect answer in answerArray //
 var highlightedButton1; // button to be highlighted when correct answer selected //
 var highlightedButton2; // button to be highlighted when incorrect answer selected //
 
+// game sounds //
+
+var rulesGameSound = new Audio("assets/sounds/mixkit-game-show-intro-943.wav");
+var correctAnswerSound = new Audio("assets/sounds/mixkit-correct-answer-tone-2870.wav");
+var incorrectAnswerSound = new Audio("assets/sounds/mixkit-game-show-wrong-answer-buzz-950.wav");
+var standardButtonClickSound = new Audio("assets/sounds/mixkit-classic-click-1117.wav");
+var simplifyButtonSound = new Audio("assets/sounds/mixkit-game-magic-hint-962.wav");
+var timerClickSound = new Audio("assets/sounds/mixkit-interface-click-1126.wav");
+var newHighScoreSound = new Audio("assets/sounds/mixkit-end-of-show-clapping-crowd-477.wav");
+
 // set event timers for buttons //
 
 document.querySelectorAll('button').forEach(b=>b.addEventListener('click', answerSelected));
@@ -32,6 +42,9 @@ function answerSelected(event){
   // what happens when the start button is clicked //
 
   if (buttonPressed == "Start") {
+    newHighScoreSound.pause();
+    newHighScoreSound.currentTime = 0;
+    standardButtonClickSound.play();
     console.log("start button clicked", playingGame);
     if (playingGame == false) {
       playingGame = true;
@@ -46,6 +59,7 @@ function answerSelected(event){
   } else if (buttonPressed == "Simplify") {
     console.log("easier button clicked", playingGame, easierFlag, correctPos);
     if (playingGame && !easierFlag){
+      simplifyButtonSound.play();
       easierFlag = true;
       simplifyAnswers();
     }
@@ -58,11 +72,13 @@ function answerSelected(event){
         console.log("answer",answerButtons[i].innerText,"clicked",  correctPos);
         if (correctPos == i && playingGame) {
           incorrectPos = -1; // set incorrectPos to -1 to indicate correct answer //
+          correctAnswerSound.play();
           highlightAnswers();
           setTimeout(contGame, 1500);
         } else if (correctPos != i && answerArray[i] != "" && playingGame) {
           console.log("wrong answer", answerArray[i], correctPos);
           incorrectPos = i; // set incorrectPos to i to indicate incorrect answer //
+          incorrectAnswerSound.play();
           highlightAnswers();
           setTimeout(endGame, 4000);
           mainGameSection();
@@ -97,8 +113,10 @@ function checkCookie() {
   } else {
     partScoreCookie = document.cookie.split('=');
     setHiScore = partScoreCookie[1];
-    console.log("setHiScore", setHiScore);  
-    highScore = setHiScore;
+    console.log("setHiScore", setHiScore); 
+    getNumber = parseInt(setHiScore);
+    console.log("getNumber", getNumber); 
+    highScore = getNumber;
     if (highScore < 10) {
       document.getElementById("highScore").innerHTML = "High Score 0"+highScore;
       } else {
@@ -231,12 +249,17 @@ function setTimer() {
 
 function timer() {
   if (timeLeft <0) {
+    timerClickSound.pause();
+    timerClickSound.currentTime = 0;
     document.getElementById("countdownTimer").innerHTML = "00";
     endGame();
   } else if (timeLeft >= 10) {
     document.getElementById("countdownTimer").innerHTML = timeLeft;
   } else {
     document.getElementById("countdownTimer").innerHTML = "0" + timeLeft;
+  }
+  if (timeLeft > -1) {
+    timerClickSound.play();
   }
   console.log(timeLeft);
   timeLeft --;
@@ -251,6 +274,7 @@ function endGame() {
   console.log("endgame function, you lose!"); 
   setInitialScreen();
   if (currentScore === highScore) {
+    newHighScoreSound.play();
     document.getElementById("currentQuestion").innerHTML = "Congratulations, you have a new high score of " + currentScore + "! Play again to see if you can beat it.";
     document.cookie = "highScore=0; expires=Sat, 23 Nov 3000 12:00:00 UTC";
     document.cookie = "highScore="+highScore+"; expires=Sat, 23 Nov 3000 12:00:00 UTC";
@@ -343,18 +367,24 @@ function mainGameSection() {
   var rulesBtn = document.getElementById("buttonRules");
   var rulesSpan = document.getElementsByClassName("close")[0];
   rulesBtn.onclick = function() {
+    standardButtonClickSound.play();
     console.log(playingGame);
     if (playingGame) {
       return;
     } else {
+      rulesGameSound.play();
       rulesModal.style.display = "block";
     }
     rulesSpan.onclick = function() {
       rulesModal.style.display = "none";
+      rulesGameSound.pause();
+      rulesGameSound.currentTime = 0;
     }
     window.onclick = function(event) {
       if (event.target == rulesModal) {
         rulesModal.style.display = "none";
+        rulesGameSound.pause();
+        rulesGameSound.currentTime = 0;
       }
     }
   }
