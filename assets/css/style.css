@@ -26,6 +26,7 @@
 }
 
 #buttonStart {
+    padding: 0;
     background-color: green;
     box-shadow: 5px 5px 2px black;
     color: white;
@@ -39,6 +40,7 @@
 }
 
 #buttonRules {
+    padding: 0;
     background-color: red;
     box-shadow: 5px 5px 2px black;
     color: white;
@@ -71,6 +73,7 @@
 }
 
 .questionButton {
+    padding: 0;
     background-color: black;
     box-shadow: 5px 5px 2px white;
     color: white;
@@ -104,6 +107,7 @@
 }
 
 #easierButton {
+    padding: 0;
     background-color: rgb(255, 102, 0);
     box-shadow: 5px 5px 2px black;
     color: white;
@@ -151,7 +155,6 @@
     top: 0;
     width: 50%;
     height: 90dvh;
-    
     overflow: auto; 
     background-color: rgba(0,0,0,0.6);
 }
@@ -201,6 +204,7 @@
     }
 
     #buttonStart {
+        padding: 0;
         background-color: green;
         box-shadow: 5px 5px 2px black;
         color: white;
@@ -214,6 +218,7 @@
     }
     
     #buttonRules {
+        padding: 0;
         background-color: red;
         box-shadow: 5px 5px 2px black;
         color: white;
@@ -246,6 +251,7 @@
     }
 
     .questionButton {
+        padding: 0;
         background-color: black;
         box-shadow: 2px 2px 1px white;
         color: white;
