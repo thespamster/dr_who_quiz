@@ -14,6 +14,7 @@ let questionArray = []; // array of questions //
 var incorrectPos;      // position of incorrect answer in answerArray //
 var highlightedButton1; // button to be highlighted when correct answer selected //
 var highlightedButton2; // button to be highlighted when incorrect answer selected //
+var timeLeft;           // time left on timer //
 
 // game sounds //
 
@@ -294,6 +295,7 @@ if (currentScore <10) {
   questionToAsk = Math.floor(Math.random() * 42); // random number to select question to be asked at start of quiz//
   currentScore = 0;   // current score //
   answerArray = [,,]; // initial array to hold answers //
+  timeLeft = 0;
   console.log("resetting to allow a new game to start");
 }
 
