@@ -34,7 +34,8 @@
     height: 150px;
     border-radius: 50%;
     font-size: 3em;
-    font-weight: bold;   
+    font-weight: bold; 
+    text-align: center;  
 }
 
 #buttonRules {
@@ -46,7 +47,8 @@
     height: 150px;
     border-radius: 50%;
     font-size: 3em;
-    font-weight: bold;   
+    font-weight: bold; 
+    text-align: center;  
 }
 
 #countdownTimer {
@@ -80,6 +82,7 @@
     font-size: 2em;
     font-weight: 700; 
     margin: 25px; 
+    text-align: center;
 }
 
 #answer-button-pos {
@@ -110,7 +113,8 @@
     border-radius: 50%;
     font-family: 'Roboto', sans-serif;
     font-size: 2em;
-    font-weight: bold;  
+    font-weight: bold; 
+    text-align: center; 
     z-index: 1;
 }
 
@@ -206,7 +210,7 @@
         border-radius: 50%;
         font-size: 2em;
         font-weight: bold; 
-        -webkit-box-align: center;  
+        text-align: center;
     }
     
     #buttonRules {
@@ -218,7 +222,8 @@
         height: 100px;
         border-radius: 50%;
         font-size: 2em;
-        font-weight: bold;   
+        font-weight: bold; 
+        text-align: center;  
     }
 
     #countdownTimer {
@@ -252,6 +257,7 @@
         font-size: 2em;
         font-weight: 700; 
         margin: 25px; 
+        text-align: center;
     }
     
     #answer-button-pos {
@@ -282,7 +288,8 @@
         border-radius: 50%;
         font-family: 'Roboto', sans-serif;
         font-size: 1.5em;
-        font-weight: bold;  
+        font-weight: bold; 
+        text-align: center; 
     }
     
     #easier-button-pos {
