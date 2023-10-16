@@ -209,10 +209,10 @@
         box-shadow: 5px 5px 2px black;
         color: white;
         border: none;
-        width: 100px;
-        height: 100px;
+        width: 85px;
+        height: 85px;
         border-radius: 50%;
-        font-size: 2em;
+        font-size: 1.5em;
         font-weight: bold; 
         text-align: center;
     }
@@ -223,21 +223,21 @@
         box-shadow: 5px 5px 2px black;
         color: white;
         border: none;
-        width: 100px;
-        height: 100px;
+        width: 85px;
+        height: 85px;
         border-radius: 50%;
-        font-size: 2em;
+        font-size: 1.5em;
         font-weight: bold; 
         text-align: center;  
     }
 
     #countdownTimer {
         font-family: 'Roboto', sans-serif;
-        font-size: 4em;
+        font-size: 3em;
         font-weight: bold;
         background-color: white;
         color: black;
-        border: 10px solid black;
+        border: 8px solid black;
         text-align: center;
         padding-top:5px;
         margin: 0 25px;   
@@ -247,7 +247,7 @@
         display: flex;
         justify-content: center;
         position: relative;
-        margin: 50px 0;
+        margin: 25px 0;
     }
 
     .questionButton {
@@ -271,7 +271,7 @@
         grid-template-columns: 15% 75%;
         grid-template-rows: repeat(3, 75px);
         align-items: center;
-        gap: 20px;  
+        gap: 5px;  
     }
     
     .answer-style {
@@ -289,11 +289,11 @@
         box-shadow: 5px 5px 2px black;
         color: white;
         border: none;
-        width: 100px;
-        height: 100px;
+        width: 85px;
+        height: 85px;
         border-radius: 50%;
         font-family: 'Roboto', sans-serif;
-        font-size: 1.5em;
+        font-size: 1.25em;
         font-weight: bold; 
         text-align: center; 
     }
@@ -302,7 +302,7 @@
         display: flex;
         justify-content: center;
         position: relative;
-        margin: 25px 0;  
+        margin: -5px 0;  
     }
     
     #score-hiscore-style {
