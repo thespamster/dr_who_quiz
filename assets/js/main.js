@@ -250,9 +250,9 @@ function setTimer() {
 // the actual timer function //
 
 function timer() {
+  timerClickSound.pause();
+  timerClickSound.currentTime = 0;
   if (timeLeft <0) {
-    timerClickSound.pause();
-    timerClickSound.currentTime = 0;
     endGameSound.play();
     document.getElementById("countdownTimer").innerHTML = "00";
     endGame();
