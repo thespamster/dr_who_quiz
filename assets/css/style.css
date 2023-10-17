@@ -268,7 +268,7 @@
     
     #answer-button-pos {
         display: grid;
-        grid-template-columns: 15% 75%;
+        grid-template-columns: 25% 70%;
         grid-template-rows: repeat(3, 75px);
         align-items: center;
         gap: 5px;  
