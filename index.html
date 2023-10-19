@@ -15,27 +15,27 @@
         <link rel="shortcut icon" href="assets/img/favicon.ico">
     </head>
     <body id="page-style">
-        <h1 class="title-question-style">'30 Seconds to Doomsday'</h1>
+        <h1 class="title-style">'30 Seconds to Doomsday'</h1>
         <div id="button-timer-pos">
-            <button type="button" id="buttonStart">Start</button>
+            <button type="button" id="buttonStart">START</button>
             <span id="countdownTimer">00</span>
-            <button type="button" id="buttonRules">Rules</button>
+            <button type="button" id="buttonRules">RULES</button>
         </div>
         <div>
-            <h2 class="title-question-style" id="currentQuestion">Press Start to play or Rules for how to play the quiz.</h2>
+            <h2 class="question-style" id="currentQuestion">Press Start to play or Rules for how to play the quiz.</h2>
             <div id="answer-button-pos">
-                <button type="button"  class="questionButton">A</button><span class="answer-style" id="answerOne"></span>
-                <button type="button"  class="questionButton">B</button><span class="answer-style" id="answerTwo"></span>
-                <button type="button"  class="questionButton">C</button><span class="answer-style" id="answerThree"></span>
+                <button type="button"  class="answerButton">A</button><span class="answer-style" id="answerOne"></span>
+                <button type="button"  class="answerButton">B</button><span class="answer-style" id="answerTwo"></span>
+                <button type="button"  class="answerButton">C</button><span class="answer-style" id="answerThree"></span>
             </div>
             <div id="easier-button-pos">
-                <button type="button" id="easierButton">Simplify</button>
+                <button type="button" id="easierButton">EASY</button>
             </div>
         </div>
         <div id="score-pos">
             <p id="score-hiscore-style">
-                <span id="currentScore">Current Score 00</span>
-                <span id="highScore">High Score 00</span>
+                <span id="currentScore">Score 00</span>
+                <span id="highScore">Best 00</span>
             </p>
         </div>
         <div id="rulesModal" class="modal">
@@ -46,15 +46,15 @@
               <span class="close">X</span>
                 <p id="rules-style">Rules:</p>
                 <p>There are 42 questions in total. 6 questions about 7 doctors.</p>
-                <p>From the 1st Doctor William Hartnell to the 7th Doctor Sylvester McCoy.</p>
+                <p>From the 1st Doctor back in the 60's to the 7th Doctor in the 80's.</p>
                 <p>The TV movie is the dividing line between classic Who and regenerated Who and is therefore not included in this quiz.</p>
                 <p>When you press START a question will be displayed and the 30 second countdown will begin.</p>
                 <p>Each question has 3 possible answers. Only one answer is correct.</p>
-                <p>You can make the question easier to answer by selecting 'Simplify' to remove one of the incorrect answers.</p>
+                <p>You can make the question easier to answer by selecting EASY to remove one of the incorrect answers.</p>
                 <p>Get the answer correct and the answer button will turn green. Get it wrong and it will turn red and the correct button will turn green.</p>
-                <p>You score 2 points for a correct answer. Unless you simplified in which case you score 1 point.</p>
+                <p>You score 2 points for a correct answer. Unless you selected EASY in which case a correct answer scores 1 point.</p>
                 <p>Each time a question is displayed the 30 second countdown resets and begins again.</p>
-                <p>The game ends when you answer incorrectly or the timer runs down to zero.</p>
+                <p>The game ends when you answer incorrectly or the timer reaches zero.</p>
                 <p>How well do you know your classic Who?</p>
                 <p>Here's a question to get you started (no points just kudos), Do you know why there are 42 questions in this quiz?</p>
             </div>

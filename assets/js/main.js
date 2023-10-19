@@ -26,6 +26,7 @@ var simplifyButtonSound = new Audio("assets/sounds/mixkit-game-magic-hint-962.wa
 var timerClickSound = new Audio("assets/sounds/mixkit-interface-click-1126.wav");
 var newHighScoreSound = new Audio("assets/sounds/mixkit-end-of-show-clapping-crowd-477.wav");
 var endGameSound = new Audio("assets/sounds/mixkit-wrong-answer-fail-notification-946.wav");
+var countdownMusic = new Audio("assets/sounds/mixkit-game-show-suspense-waiting-667.wav");
 
 // set event timers for buttons //
 
@@ -33,7 +34,7 @@ document.querySelectorAll('button').forEach(b=>b.addEventListener('click', answe
 
 function answerSelected(event){
   event.preventDefault()
-  answerButtons = document.getElementsByClassName("questionButton");
+  answerButtons = document.getElementsByClassName("answerButton");
 
   //event.target is the button that was clicked //
 
@@ -43,7 +44,7 @@ function answerSelected(event){
 
   // what happens when the start button is clicked //
 
-  if (buttonPressed == "Start") {
+  if (buttonPressed == "START") {
     newHighScoreSound.pause();
     newHighScoreSound.currentTime = 0;
     standardButtonClickSound.play();
@@ -58,7 +59,7 @@ function answerSelected(event){
 
   // what happens when the simplify button is clicked //
 
-  } else if (buttonPressed == "Simplify") {
+  } else if (buttonPressed == "EASY") {
     console.log("easier button clicked", playingGame, easierFlag, correctPos);
     if (playingGame && !easierFlag){
       simplifyButtonSound.play();
@@ -120,9 +121,9 @@ function checkCookie() {
     console.log("getNumber", getNumber); 
     highScore = getNumber;
     if (highScore < 10) {
-      document.getElementById("highScore").innerHTML = "High Score 0"+highScore;
+      document.getElementById("highScore").innerHTML = "Best 0"+highScore;
       } else {
-        document.getElementById("highScore").innerHTML = "High Score "+highScore;
+        document.getElementById("highScore").innerHTML = "Best "+highScore;
       }
   } 
 }
@@ -231,11 +232,11 @@ function setInitialScreen() {
   document.getElementById("answerTwo").innerHTML = "";
   document.getElementById("answerThree").innerHTML = "";
   document.getElementById("countdownTimer").innerHTML = "00";
-  document.getElementById("currentScore").innerHTML = "Current Score 00";
+  document.getElementById("currentScore").innerHTML = "Score 00";
   if (highScore < 10) {
-    document.getElementById("highScore").innerHTML = "High Score 0"+highScore;
+    document.getElementById("highScore").innerHTML = "Best 0"+highScore;
   } else {
-    document.getElementById("highScore").innerHTML = "High Score "+highScore;
+    document.getElementById("highScore").innerHTML = "Best "+highScore;
   }   
 }
 
@@ -244,6 +245,7 @@ function setInitialScreen() {
 function setTimer() { 
   timeLeft=30
   timerRunning = setInterval(timer, 1000);
+  
   console.log("timer running", timerRunning); 
 }
 
@@ -312,17 +314,17 @@ function contGame() {
        console.log("cookie set", document.cookie); */
         
     if (highScore < 10) {
-      document.getElementById("highScore").innerHTML = "High Score 0"+highScore;
+      document.getElementById("highScore").innerHTML = "Best 0"+highScore;
     } else {
-      document.getElementById("highScore").innerHTML = "High Score "+highScore;
+      document.getElementById("highScore").innerHTML = "Best "+highScore;
     }    
   }
   console.log("current score", currentScore);
   scoreDisplay = document.getElementById("currentScore");
   if (currentScore < 10) {
-    scoreDisplay.innerHTML = "Current Score 0" + currentScore;
+    scoreDisplay.innerHTML = "Score 0" + currentScore;
   } else {
-    scoreDisplay.innerHTML = "Current Score "+currentScore;
+    scoreDisplay.innerHTML = "Score "+currentScore;
   }
   questionToAsk = Math.floor(Math.random() * questionsLeft);
   setTimer();

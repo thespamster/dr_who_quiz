@@ -14,9 +14,20 @@
     padding: 0;  
 }
 
-.title-question-style {
+.title-style {
     font-family: 'Roboto', sans-serif;
     font-size: 3em;
+    font-weight: 700;
+    color: black;
+    background-color: rgba(255, 255, 255, 0.65);
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;  
+}
+
+.question-style {
+    font-family: 'Roboto', sans-serif;
+    font-size: 2em;
     font-weight: 600;
     color: black;
     background-color: rgba(255, 255, 255, 0.65);
@@ -31,10 +42,10 @@
     box-shadow: 5px 5px 2px black;
     color: white;
     border: none;
-    width: 150px;
-    height: 150px;
+    width: 125px;
+    height: 125px;
     border-radius: 50%;
-    font-size: 3em;
+    font-size: 2em;
     font-weight: bold; 
     text-align: center;  
 }
@@ -45,10 +56,10 @@
     box-shadow: 5px 5px 2px black;
     color: white;
     border: none;
-    width: 150px;
-    height: 150px;
+    width: 125px;
+    height: 125px;
     border-radius: 50%;
-    font-size: 3em;
+    font-size: 2em;
     font-weight: bold; 
     text-align: center;  
 }
@@ -62,30 +73,32 @@
     border: 10px solid black;
     text-align: center;
     padding-top: 10px;
-    margin: 0 50px;   
+    margin: 0 50px;
+      
 }
 
 #button-timer-pos {
     display: flex;
     justify-content: center;
     position: relative;
-    margin: 100px 0;
+    margin: 10px 0;
 }
 
-.questionButton {
+.answerButton {
     padding: 0;
     background-color: black;
     box-shadow: 5px 5px 2px white;
     color: white;
     border: none;
-    width: 75px;
-    height: 75px;
+    width: 55px;
+    height: 55px;
     border-radius: 50%;
     font-family: 'Roboto', sans-serif;
     font-size: 2em;
     font-weight: 700; 
-    margin: 25px; 
+    margin: 0, 25px; 
     text-align: center;
+    z-index: 1;
 }
 
 #answer-button-pos {
@@ -93,17 +106,20 @@
     grid-template-columns: 15% 75%;
     grid-template-rows: repeat(3, 75px);
     align-items: center;
-    gap: 25px;  
+    justify-content: center;
+    gap: 25px; 
+    
 }
 
 .answer-style {
     font-family: 'Roboto', sans-serif;
-    font-size: 2em;
+    font-size: 1.75em;
     font-weight: 700;
     color: black;
     background-color: rgba(255, 255, 255, 0.65);
     margin-top: 10px;
-    margin-bottom: 10px;  
+    margin-bottom: 10px; 
+    text-align:center; 
 }
 
 #easierButton {
@@ -112,11 +128,11 @@
     box-shadow: 5px 5px 2px black;
     color: white;
     border: none;
-    width: 150px;
-    height: 150px;
+    width: 125px;
+    height: 125px;
     border-radius: 50%;
     font-family: 'Roboto', sans-serif;
-    font-size: 2em;
+    font-size: 2.25em;
     font-weight: bold; 
     text-align: center; 
     z-index: 1;
@@ -126,7 +142,7 @@
     display: flex;
     position: relative;
     justify-content: center;
-    margin: 75px 0;  
+    margin: 5px 0;  
 }
 
 #score-hiscore-style {
@@ -154,7 +170,7 @@
     left: 0;
     top: 0;
     width: 50%;
-    height: 90dvh;
+    height: 70dvh;
     overflow: auto; 
     background-color: rgba(0,0,0,0.6);
 }
@@ -190,11 +206,27 @@
     cursor: pointer;
 }
 
+#currentScore {
+    justify-content: left;
+
+}
+
 @media screen and (max-width: 640px) {
-    
-    .title-question-style {
+
+    .title-style {
         font-family: 'Roboto', sans-serif;
-        font-size: 1.5em;
+        font-size: 1.6em;
+        font-weight: 700;
+        color: black;
+        background-color: rgba(255, 255, 255, 0.65);
+        text-align: center;
+        margin-top: 10px;
+        margin-bottom: 10px;  
+    }
+    
+    .question-style {
+        font-family: 'Roboto', sans-serif;
+        font-size: 1.25em;
         font-weight: 600;
         color: black;
         background-color: rgba(255, 255, 255, 0.65);
@@ -250,17 +282,17 @@
         margin: 25px 0;
     }
 
-    .questionButton {
+    .answerButton {
         padding: 0;
         background-color: black;
         box-shadow: 2px 2px 1px white;
         color: white;
         border: none;
-        width: 50px;
-        height: 50px;
+        width: 45px;
+        height: 45px;
         border-radius: 50%;
         font-family: 'Roboto', sans-serif;
-        font-size: 2em;
+        font-size: 1.75em;
         font-weight: 700; 
         margin: 25px; 
         text-align: center;
