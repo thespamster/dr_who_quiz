@@ -1,25 +1,24 @@
 
 // game variables //
 
-
-var answerButtons;       // array of answer buttons //
-var playingGame = false; // is a game in progress? //
-var easierFlag = false;  // has the simplify button been clicked? //
-var questionsLeft = 42; // number of questions left to ask //
 var correctPos;        // position of correct answer in answerArray //
 var timeLeft;           // time left on timer //
 var incorrectPos;      // position of incorrect answer in answerArray //
 var highlightedButton1; // button to be highlighted when correct answer selected //
 var highlightedButton2; // button to be highlighted when incorrect answer selected //
 var currentScore = 0;   // current score //
+var answerButtons;       // array of answer buttons //
 var highScore = 0;    // high score //
+var questionsLeft = 42; // number of questions left to ask //
 var questionToAsk = Math.floor(Math.random() * 42); // random number to select question to be asked at start of quiz//
-let answerArray = []; // initial array to hold answers //
-let questionArray = []; // array of questions //
+var playingGame = false; // is a game in progress? //
+var easierFlag = false;  // has the simplify button been clicked? //
+var answerArray = []; // initial array to hold answers //
+var questionArray = []; // array of questions //
 
 // game sounds //
 
-var rulesGameSound = new Audio("assets/sounds/mixkit-game-show-intro-943.wav");
+var rulesGameSound = new Audio("./assets/sounds/mixkit-game-show-intro-943.wav");
 var correctAnswerSound = new Audio("assets/sounds/mixkit-correct-answer-tone-2870.wav");
 var incorrectAnswerSound = new Audio("assets/sounds/mixkit-game-show-wrong-answer-buzz-950.wav");
 var standardButtonClickSound = new Audio("assets/sounds/mixkit-classic-click-1117.wav");
@@ -244,13 +243,13 @@ function setInitialScreen() {
 // set the 30 second timer function //
 
 function setTimer() { 
+  timerMusic = setTimeout(timerSound, 1000);
   timeLeft=30
   timerRunning = setInterval(timer, 1000);
-  timerMusic = setTimeout(TimerSound, 1000);
   console.log("timer running", timerRunning); 
 }
 
-function TimerSound() {
+function timerSound() {
   timerClickSound.play();
 }
 
