@@ -1,20 +1,21 @@
 
 // game variables //
 
+
+var answerButtons;       // array of answer buttons //
 var playingGame = false; // is a game in progress? //
 var easierFlag = false;  // has the simplify button been clicked? //
-var answerButtons;       // array of answer buttons //
 var questionsLeft = 42; // number of questions left to ask //
-var questionToAsk = Math.floor(Math.random() * 42); // random number to select question to be asked at start of quiz//
-var currentScore = 0;   // current score //
-var highScore = 0;    // high score //
-let answerArray = [,,]; // initial array to hold answers //
 var correctPos;        // position of correct answer in answerArray //
-let questionArray = []; // array of questions //
+var timeLeft;           // time left on timer //
 var incorrectPos;      // position of incorrect answer in answerArray //
 var highlightedButton1; // button to be highlighted when correct answer selected //
 var highlightedButton2; // button to be highlighted when incorrect answer selected //
-var timeLeft;           // time left on timer //
+var currentScore = 0;   // current score //
+var highScore = 0;    // high score //
+var questionToAsk = Math.floor(Math.random() * 42); // random number to select question to be asked at start of quiz//
+let answerArray = []; // initial array to hold answers //
+let questionArray = []; // array of questions //
 
 // game sounds //
 
@@ -23,7 +24,7 @@ var correctAnswerSound = new Audio("assets/sounds/mixkit-correct-answer-tone-287
 var incorrectAnswerSound = new Audio("assets/sounds/mixkit-game-show-wrong-answer-buzz-950.wav");
 var standardButtonClickSound = new Audio("assets/sounds/mixkit-classic-click-1117.wav");
 var simplifyButtonSound = new Audio("assets/sounds/mixkit-game-magic-hint-962.wav");
-var timerClickSound = new Audio("assets/sounds/click-21156.mp3");
+var timerClickSound = new Audio("assets/sounds/mixkit-slow-tick-tock-clock-timer-1050.wav");
 var newHighScoreSound = new Audio("assets/sounds/mixkit-end-of-show-clapping-crowd-477.wav");
 var endGameSound = new Audio("assets/sounds/mixkit-wrong-answer-fail-notification-946.wav");
 var countdownMusic = new Audio("assets/sounds/mixkit-game-show-suspense-waiting-667.wav");
@@ -187,7 +188,7 @@ function askQuestion () {
       questionsLeft = 42; // number of questions left to ask //
       questionToAsk = Math.floor(Math.random() * 42); // random number to select question to be asked at start of quiz//
       currentScore = 0;   // current score //
-      answerArray = [,,]; // initial array to hold answers //
+      answerArray = []; // initial array to hold answers //
       console.log("resetting to allow a new game to start");
    } 
 }
@@ -245,15 +246,18 @@ function setInitialScreen() {
 function setTimer() { 
   timeLeft=30
   timerRunning = setInterval(timer, 1000);
-  
+  timerMusic = setTimeout(TimerSound, 1000);
   console.log("timer running", timerRunning); 
+}
+
+function TimerSound() {
+  timerClickSound.play();
 }
 
 // the actual timer function //
 
 function timer() {
-  timerClickSound.pause();
-  timerClickSound.currentTime = 0;
+
   if (timeLeft <0) {
     endGameSound.play();
     document.getElementById("countdownTimer").innerHTML = "00";
@@ -264,7 +268,7 @@ function timer() {
     document.getElementById("countdownTimer").innerHTML = "0" + timeLeft;
   }
   if (timeLeft > -1) {
-    timerClickSound.play();
+    
   }
   console.log(timeLeft);
   timeLeft --;
@@ -334,6 +338,8 @@ function contGame() {
 // highlight correct(in green)  and incorrect(in red) answers //
 
 function highlightAnswers() {
+  timerClickSound.pause();
+  timerClickSound.currentTime = 0;
   if (incorrectPos == -1) {
     clearInterval(timerRunning);
     highlightedButton1 = answerButtons[correctPos]
