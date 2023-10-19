@@ -1,5 +1,5 @@
 
-// global variables //
+// game variables //
 
 var playingGame = false; // is a game in progress? //
 var easierFlag = false;  // has the simplify button been clicked? //
@@ -23,7 +23,7 @@ var correctAnswerSound = new Audio("assets/sounds/mixkit-correct-answer-tone-287
 var incorrectAnswerSound = new Audio("assets/sounds/mixkit-game-show-wrong-answer-buzz-950.wav");
 var standardButtonClickSound = new Audio("assets/sounds/mixkit-classic-click-1117.wav");
 var simplifyButtonSound = new Audio("assets/sounds/mixkit-game-magic-hint-962.wav");
-var timerClickSound = new Audio("assets/sounds/mixkit-interface-click-1126.wav");
+var timerClickSound = new Audio("assets/sounds/click-21156.mp3");
 var newHighScoreSound = new Audio("assets/sounds/mixkit-end-of-show-clapping-crowd-477.wav");
 var endGameSound = new Audio("assets/sounds/mixkit-wrong-answer-fail-notification-946.wav");
 var countdownMusic = new Audio("assets/sounds/mixkit-game-show-suspense-waiting-667.wav");
