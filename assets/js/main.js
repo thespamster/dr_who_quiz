@@ -23,10 +23,11 @@ var correctAnswerSound = new Audio("assets/sounds/mixkit-correct-answer-tone-287
 var incorrectAnswerSound = new Audio("assets/sounds/mixkit-game-show-wrong-answer-buzz-950.wav");
 var standardButtonClickSound = new Audio("assets/sounds/mixkit-classic-click-1117.wav");
 var simplifyButtonSound = new Audio("assets/sounds/mixkit-game-magic-hint-962.wav");
-var timerClickSound = new Audio("assets/sounds/mixkit-slow-tick-tock-clock-timer-1050.wav");
+var countdownSound = new Audio("assets/sounds/mixkit-game-show-intro-943.wav");
 var newHighScoreSound = new Audio("assets/sounds/mixkit-end-of-show-clapping-crowd-477.wav");
 var endGameSound = new Audio("assets/sounds/mixkit-wrong-answer-fail-notification-946.wav");
-var countdownMusic = new Audio("assets/sounds/mixkit-game-show-suspense-waiting-667.wav");
+var crowdBooingSound = new Audio("assets/sounds/mixkit-crowd-disappointment-long-boo-463.wav");
+
 
 // set event timers for buttons //
 
@@ -47,6 +48,8 @@ function answerSelected(event){
   if (buttonPressed == "START") {
     newHighScoreSound.pause();
     newHighScoreSound.currentTime = 0;
+    crowdBooingSound.pause();
+    crowdBooingSound.currentTime = 0;
     standardButtonClickSound.play();
     console.log("start button clicked", playingGame);
     if (playingGame == false) {
@@ -175,13 +178,17 @@ function askQuestion () {
     clearInterval(timerRunning);
     if (currentScore === 84) {
       alert("Wow, have you got access to the Matrix? You got all the questions right. You win! No need to play again.");
+
     }
     setInitialScreen();
-      if (currentScore === highScore) {
+      /* if (currentScore === highScore) {
         document.getElementById("currentQuestion").innerHTML = "Congratulations, you have a new high score of " + currentScore + "! Play again to see if you can beat it.";
         document.cookie = "highScore=0; expires=Sat, 23 Nov 3000 12:00:00 UTC";
         document.cookie = "highScore="+highScore+"; expires=Sat, 23 Nov 3000 12:00:00 UTC";
-      }
+      } */
+
+      endGame();
+
       playingGame = false; // is a game in progress? //
       easierFlag = false;  // has the simplify button been clicked? //     
       questionsLeft = 42; // number of questions left to ask //
@@ -250,7 +257,7 @@ function setTimer() {
 }
 
 function timerSound() {
-  timerClickSound.play();
+  countdownSound.play();
 }
 
 // the actual timer function //
@@ -258,6 +265,9 @@ function timerSound() {
 function timer() {
 
   if (timeLeft <0) {
+    countdownSound.pause();
+    countdownSound.currentTime = 0;
+    
     endGameSound.play();
     document.getElementById("countdownTimer").innerHTML = "00";
     endGame();
@@ -276,18 +286,20 @@ function timer() {
 // end game function //
 
 function endGame() {
+
   console.log("end game", timerRunning);
   clearInterval(timerRunning);
   console.log("after clear interval", timerRunning);
   console.log("endgame function, you lose!"); 
   setInitialScreen();
-
-if (currentScore <10) {
-  document.getElementById("currentQuestion").innerHTML = "You scored 0"+currentScore+". Probably need to reverse the polarity of the neutron flow. Press Start to play again.";
-} else {
-  document.getElementById("currentQuestion").innerHTML = "You scored "+currentScore+". Well done, worthy of a reward. Would you like a jelly baby? Press Start to play again.";
-}
-  if (currentScore === highScore) {
+  if (currentScore === 0) {
+    document.getElementById("currentQuestion").innerHTML = "You got none right. Prepare to be taken to Shada for the rest of eternity. Or try again. It's up to you.";
+    crowdBooingSound.play();
+  } else if (currentScore <10) {
+    document.getElementById("currentQuestion").innerHTML = "You scored 0"+currentScore+". Probably need to reverse the polarity of the neutron flow. Press Start to play again.";
+  } else if (currentScore >=10 && currentScore !== highScore) {
+    document.getElementById("currentQuestion").innerHTML = "You scored "+currentScore+". Well done, worthy of a reward. Would you like a jelly baby? Press Start to play again.";
+  } else if (currentScore === highScore) {
     newHighScoreSound.play();
     document.getElementById("currentQuestion").innerHTML = "Congratulations! You have a new high score of " + currentScore + ". Play again to see if you can beat it.";
     document.cookie = "highScore=0; expires=Sat, 23 Nov 3000 12:00:00 UTC";
@@ -337,8 +349,8 @@ function contGame() {
 // highlight correct(in green)  and incorrect(in red) answers //
 
 function highlightAnswers() {
-  timerClickSound.pause();
-  timerClickSound.currentTime = 0;
+  countdownSound.pause();
+  countdownSound.currentTime = 0;
   if (incorrectPos == -1) {
     clearInterval(timerRunning);
     highlightedButton1 = answerButtons[correctPos]
@@ -389,19 +401,17 @@ function mainGameSection() {
     if (playingGame) {
       return;
     } else {
-      rulesGameSound.play();
+      
       rulesModal.style.display = "block";
     }
     rulesSpan.onclick = function() {
       rulesModal.style.display = "none";
-      rulesGameSound.pause();
-      rulesGameSound.currentTime = 0;
+      
     }
     window.onclick = function(event) {
       if (event.target == rulesModal) {
         rulesModal.style.display = "none";
-        rulesGameSound.pause();
-        rulesGameSound.currentTime = 0;
+        
       }
     }
   }
