@@ -18,50 +18,49 @@ var questionArray = []; // question array //
 
 // game sounds. royalty free. credit in readme. //
 
-var rulesGameSound = new Audio("./assets/sounds/mixkit-game-show-intro-943.wav");
-var correctAnswerSound = new Audio("assets/sounds/mixkit-correct-answer-tone-2870.wav");
-var incorrectAnswerSound = new Audio("assets/sounds/mixkit-game-show-wrong-answer-buzz-950.wav");
-var standardButtonClickSound = new Audio("assets/sounds/mixkit-classic-click-1117.wav");
-var simplifyButtonSound = new Audio("assets/sounds/mixkit-game-magic-hint-962.wav");
-var countdownSound = new Audio("assets/sounds/mixkit-game-show-intro-943.wav");
-var newHighScoreSound = new Audio("assets/sounds/mixkit-end-of-show-clapping-crowd-477.wav");
-var endGameSound = new Audio("assets/sounds/mixkit-wrong-answer-fail-notification-946.wav");
-var crowdBooingSound = new Audio("assets/sounds/mixkit-crowd-disappointment-long-boo-463.wav");
+var correctAnswerSound = new Audio("assets/sounds/correct.wav");
+var incorrectAnswerSound = new Audio("assets/sounds/incorrect.wav");
+var standardButtonClickSound = new Audio("assets/sounds/click.wav");
+var simplifyButtonSound = new Audio("assets/sounds/easy.wav");
+var countdownSound = new Audio("assets/sounds/timer.wav");
+var newHighScoreSound = new Audio("assets/sounds/clapping.wav");
+var endGameSound = new Audio("assets/sounds/fail.wav");
+var crowdBooingSound = new Audio("assets/sounds/booing.wav");
 
 // set event timers for buttons //
 
-document.querySelectorAll('button').forEach(b=>b.addEventListener('click', answerSelected));
+document.querySelectorAll("button").forEach((b)=>b.addEventListener("click", answerSelected));
 
 function answerSelected(event){
-  event.preventDefault()
+  var button = event.target;
+  var buttonPressed = button.innerText;
+  event.preventDefault();
   answerButtons = document.getElementsByClassName("answerButton");
 
   //event.target is the button that was clicked //
 
-  var button = event.target;
-  var buttonPressed = button.innerText;
-  console.log("BUTTON PRESSED is", buttonPressed, playingGame, easierFlag);
+  console.log("js42: button pressed is", buttonPressed, playingGame, easierFlag);
 
   // what happens when the start button is clicked //
 
-  if (buttonPressed == "START") {
+  if (buttonPressed === "START") {
     newHighScoreSound.pause();
     newHighScoreSound.currentTime = 0;
     crowdBooingSound.pause();
     crowdBooingSound.currentTime = 0;
     standardButtonClickSound.play();
     console.log("start button clicked", playingGame);
-    if (playingGame == false) {
+    if (playingGame === false) {
       playingGame = true;
       console.log("game started =", playingGame);
       setTimer();
       questionToAsk = Math.floor(Math.random() * questionsLeft);
-      askQuestion(questionArray, questionsLeft, questionToAsk); 
+      askQuestion(questionArray, questionsLeft, questionToAsk);
     }
 
   // what happens when the simplify button is clicked //
 
-  } else if (buttonPressed == "EASY") {
+  } else if (buttonPressed === "EASY") {
     console.log("easier button clicked", playingGame, easierFlag, correctPos);
     if (playingGame && !easierFlag){
       simplifyButtonSound.play();
@@ -73,14 +72,14 @@ function answerSelected(event){
 
   } else {
     for (i=0; i<3; i++) {
-      if (buttonPressed == answerButtons[i].innerText) {
+      if (buttonPressed === answerButtons[i].innerText) {
         console.log("answer",answerButtons[i].innerText,"clicked",  correctPos);
-        if (correctPos == i && playingGame) {
+        if (correctPos === i && playingGame) {
           incorrectPos = -1; // no incorrectPos //
           correctAnswerSound.play();
           highlightAnswers();
           setTimeout(contGame, 1500);
-        } else if (correctPos != i && answerArray[i] != "" && playingGame) {
+        } else if (correctPos !== i && answerArray[i] !== "" && playingGame) {
           console.log("wrong answer", answerArray[i], correctPos);
           incorrectPos = i; // set incorrect answer //
           incorrectAnswerSound.play();
@@ -93,7 +92,7 @@ function answerSelected(event){
   }
 }
 
-// function that checks for hi-score cookie, asks for permisiion if there isn't one //
+// checks for hi-score cookie //
 
 function checkCookie() {
 
@@ -104,7 +103,7 @@ function checkCookie() {
 
   // check if it exists //
 
-  if (hiScoreCookie == "") {
+  if (hiScoreCookie === "") {
 
     // if it doesn't then create it and set it to 0 //
 
@@ -113,10 +112,10 @@ function checkCookie() {
     highScore = 0;
     console.log("cookie:", hiScoreCookie);
 
-    // if it does then get the value and set the high score to it and write it into the html to display it //
+    // if it does make it the high score //
 
   } else {
-    partScoreCookie = document.cookie.split('=');
+    partScoreCookie = document.cookie.split("=");
     setHiScore = partScoreCookie[1];
     console.log("setHiScore", setHiScore);
     getNumber = parseInt(setHiScore);
@@ -144,10 +143,10 @@ function askQuestion () {
 
     // randomise answers //
 
-    answerArray = [,,];
+    answerArray = [];
     for (i = 0; i < 3; i++) {
       rndNum3 = Math.floor(Math.random() * 3);
-      if (answerArray[rndNum3] == undefined) {
+      if (answerArray[rndNum3] === undefined) {
         answerArray[rndNum3] = questionArray[questionToAsk].answers[i];
         console.log("answerArray", answerArray);
       } else {
@@ -180,7 +179,7 @@ function askQuestion () {
 
     }
     setInitialScreen();
-    (endGame, 2500);
+    setTimeout(endGame, 2500);
     playingGame = false;
     easierFlag = false;
     questionsLeft = 42;
@@ -199,7 +198,7 @@ function displayAnswers() {
   answerTwo.innerHTML = answerArray[1];
   answerThree.innerHTML = answerArray[2];
   for (i=0; i < 3; i++) {
-    if (answerArray[i] == correctAnswer) {
+    if (answerArray[i] === correctAnswer) {
       correctPos = i;
     }
   }
@@ -209,12 +208,12 @@ function displayAnswers() {
 function simplifyAnswers() {
   questionToRemove = Math.floor(Math.random() * 2);
   console.log("easier button clicked", correctAnswer, "questionToRemove", questionToRemove);
-  while (questionToRemove == correctPos) {
+  while (questionToRemove === correctPos) {
     questionToRemove = Math.floor(Math.random() * 2);
     console.log("questionToRemove", questionToRemove);
   }
   for (i = 0; i < 3; i++) {
-    if (answerArray[i] != correctAnswer && i == questionToRemove) {
+    if (answerArray[i] !== correctAnswer && i === questionToRemove) {
       answerArray[i] = "";
       console.log("answerArray", answerArray);
     }
@@ -284,9 +283,9 @@ function endGame() {
     document.getElementById("currentQuestion").innerHTML = "You got none right. Prepare to be taken to Shada for the rest of eternity. Or try again. It's up to you.";
     crowdBooingSound.play();
   } else if (currentScore <10) {
-    document.getElementById("currentQuestion").innerHTML = "You scored 0"+currentScore+". Probably need to reverse the polarity of the neutron flow. Press Start to play again.";
+    document.getElementById("currentQuestion").innerHTML = "You scored 0"+currentScore+". You probably need to reverse the polarity of the neutron flow, or at least have another go.";
   } else if (currentScore >=10 && currentScore !== highScore) {
-    document.getElementById("currentQuestion").innerHTML = "You scored "+currentScore+". Well done, worthy of a reward. Would you like a jelly baby? Press Start to play again.";
+    document.getElementById("currentQuestion").innerHTML = "You scored "+currentScore+". Well done, worthy of a reward. Would you like a jelly baby? Press START to play again.";
   } else if (currentScore === highScore) {
     newHighScoreSound.play();
     document.getElementById("currentQuestion").innerHTML = "Congratulations! You have a new high score of " + currentScore + ". Play again to see if you can beat it.";
@@ -298,7 +297,7 @@ function endGame() {
   questionsLeft = 42;
   questionToAsk = Math.floor(Math.random() * 42);
   currentScore = 0;
-  answerArray = [,,];
+  answerArray = [];
   timeLeft = 0;
   console.log("resetting to allow a new game to start");
 }
@@ -312,7 +311,7 @@ function contGame() {
   if (currentScore > highScore) {
     highScore = currentScore;
 
-    /* document.cookie = "highScore," + highScore + "; expires=Sat, 23 Nov 9999 23:59:59 GMT; path=/"; 
+    /* document.cookie = "highScore," + highScore + "; expires=Sat, 23 Nov 9999 23:59:59 GMT; path=/";
        console.log("cookie set", document.cookie); */
 
     if (highScore < 10) {
@@ -338,7 +337,7 @@ function contGame() {
 function highlightAnswers() {
   countdownSound.pause();
   countdownSound.currentTime = 0;
-  if (incorrectPos == -1) {
+  if (incorrectPos === -1) {
     clearInterval(timerRunning);
     highlightedButton1 = answerButtons[correctPos];
     highlightedButton1.style.backgroundColor = "green";
@@ -362,40 +361,39 @@ function resetButtonColour() {
 // main game section //
 
 function mainGameSection() {
+  var rulesModal = document.getElementById("rulesModal");
+  var rulesBtn = document.getElementById("buttonRules");
+  var rulesSpan = document.getElementsByClassName("close")[0];
 
   // array of questions and answers fetched from json file //
 
   questionArray = [];
     fetch("./assets/questions.json")
-    .then(res => {
+    .then((res) => {
       return res.json();
-    }).then (jsonQuestions => {
+    }).then ((jsonQuestions) => {
       questionArray = jsonQuestions;
       console.log(questionArray);
     })
-    .catch(err => {
+    .catch((err) => {
       console.error(err);
     });
 
   // modal to display rules of the game //
 
-  var rulesModal = document.getElementById("rulesModal");
-  var rulesBtn = document.getElementById("buttonRules");
-  var rulesSpan = document.getElementsByClassName("close")[0];
   rulesBtn.onclick = function() {
     standardButtonClickSound.play();
     console.log(playingGame);
     if (playingGame) {
       return;
     } else {
-
       rulesModal.style.display = "block";
     }
     rulesSpan.onclick = function() {
       rulesModal.style.display = "none";
     }
     window.onclick = function(event) {
-      if (event.target == rulesModal) {
+      if (event.target === rulesModal) {
         rulesModal.style.display = "none";
       }
     }
