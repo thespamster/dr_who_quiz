@@ -231,11 +231,11 @@ function setInitialScreen() {
   document.getElementById("answerThree").innerHTML = "";
   document.getElementById("countdownTimer").innerHTML = "00";
   document.getElementById("currentScore").innerHTML = "Score 00";
-  if (highScore < 10) {
+  /* if (highScore < 10) {
     document.getElementById("highScore").innerHTML = "Best 0"+highScore;
   } else {
     document.getElementById("highScore").innerHTML = "Best "+highScore;
-  }
+  } */
 }
 
 // set the 30 second timer function //
@@ -273,25 +273,25 @@ function timer() {
 // end game function //
 
 function endGame() {
-
-  console.log("end game", timerRunning);
+  console.log("end game", timerRunning, currentScore, highScore);
   clearInterval(timerRunning);
   console.log("after clear interval", timerRunning);
-  console.log("endgame function, you lose!");
+  console.log("ENDgame function, you lose!");
+  console.log("ENDGAME ", currentScore, highScore);
   setInitialScreen();
   if (currentScore === 0) {
     document.getElementById("currentQuestion").innerHTML = "You got none right. Prepare to be taken to Shada for the rest of eternity. Or try again. It's up to you.";
     crowdBooingSound.play();
-  } else if (currentScore <10) {
-    document.getElementById("currentQuestion").innerHTML = "You scored 0"+currentScore+". You probably need to reverse the polarity of the neutron flow, or at least have another go.";
-  } else if (currentScore >=10 && currentScore !== highScore) {
-    document.getElementById("currentQuestion").innerHTML = "You scored "+currentScore+". Well done, worthy of a reward. Would you like a jelly baby? Press START to play again.";
   } else if (currentScore === highScore) {
     newHighScoreSound.play();
     document.getElementById("currentQuestion").innerHTML = "Congratulations! You have a new high score of " + currentScore + ". Play again to see if you can beat it.";
     document.cookie = "highScore=0; expires=Sat, 23 Nov 3000 12:00:00 UTC";
     document.cookie = "highScore="+highScore+"; expires=Sat, 23 Nov 3000 12:00:00 UTC";
-  }
+  } else if (currentScore <10 && currentScore !== highScore) {
+    document.getElementById("currentQuestion").innerHTML = "You scored 0"+currentScore+". You probably need to reverse the polarity of the neutron flow, or at least have another go.";
+  } else if (currentScore >=10 && currentScore !== highScore) {
+    document.getElementById("currentQuestion").innerHTML = "You scored "+currentScore+". Well done, worthy of a reward. Would you like a jelly baby? Press START to play again.";
+  } 
   playingGame = false;
   easierFlag = false;
   questionsLeft = 42;
