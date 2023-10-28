@@ -13,6 +13,7 @@ var questionsLeft = 42; // number of questions left to ask //
 var questionToAsk = Math.floor(Math.random() * 42); // random start question //
 var playingGame = false; // game in progress? //
 var easierFlag = false;  // simplify button been clicked? //
+var playSound = true;   // sound effects enabled/disabled //
 var answerArray = []; // answer array //
 var questionArray = []; // question array //
 
@@ -26,6 +27,23 @@ var countdownSound = new Audio("assets/sounds/timer.wav");
 var newHighScoreSound = new Audio("assets/sounds/clapping.wav");
 var endGameSound = new Audio("assets/sounds/fail.wav");
 var crowdBooingSound = new Audio("assets/sounds/booing.wav");
+
+// toggle sound on/off //
+
+function toggleSound() {
+  var soundButton = document.getElementById("soundButton");
+  if (playSound) {
+    playSound = false;
+    soundButton.innerHTML = '<i class="fa fa-volume-off" aria-hidden="true">';
+    countdownSound.pause();
+    
+  } else {
+    playSound = true;
+    soundButton.innerHTML = '<i class="fa fa-volume-up" aria-hidden="true"></i>';
+    countdownSound.play();
+  }
+  console.log("toggleSound", playSound);
+}
 
 // set event timers for buttons //
 
@@ -48,7 +66,10 @@ function answerSelected(event){
     newHighScoreSound.currentTime = 0;
     crowdBooingSound.pause();
     crowdBooingSound.currentTime = 0;
-    standardButtonClickSound.play();
+    
+    if (playSound) {
+      standardButtonClickSound.play();
+    }
     console.log("start button clicked", playingGame);
     if (playingGame === false) {
       playingGame = true;
@@ -60,10 +81,14 @@ function answerSelected(event){
 
   // what happens when the simplify button is clicked //
 
-  } else if (buttonPressed === "EASY") {
+  } else if (buttonPressed === "SIMPLIFY") {
     console.log("easier button clicked", playingGame, easierFlag, correctPos);
     if (playingGame && !easierFlag){
-      simplifyButtonSound.play();
+
+      if (playSound) {
+        standardButtonClickSound.play();
+        simplifyButtonSound.play();
+      }
       easierFlag = true;
       simplifyAnswers();
     }
@@ -76,13 +101,21 @@ function answerSelected(event){
         console.log("answer",answerButtons[i].innerText,"clicked",  correctPos);
         if (correctPos === i && playingGame) {
           incorrectPos = -1; // no incorrectPos //
-          correctAnswerSound.play();
+
+          if (playSound) {
+            correctAnswerSound.play();
+          }
+
           highlightAnswers();
           setTimeout(contGame, 1500);
         } else if (correctPos !== i && answerArray[i] !== "" && playingGame) {
           console.log("wrong answer", answerArray[i], correctPos);
           incorrectPos = i; // set incorrect answer //
+
+          if (playSound) {
           incorrectAnswerSound.play();
+          }
+
           highlightAnswers();
           setTimeout(endGame, 2500);
           mainGameSection();
@@ -248,7 +281,10 @@ function setTimer() {
 }
 
 function timerSound() {
+
+  if (playSound) {
   countdownSound.play();
+  }
 }
 
 // the actual timer function //
@@ -258,7 +294,11 @@ function timer() {
   if (timeLeft <0) {
     countdownSound.pause();
     countdownSound.currentTime = 0;
-    endGameSound.play();
+
+    if (playSound) {
+      endGameSound.play();
+    }
+  
     document.getElementById("countdownTimer").innerHTML = "00";
     endGame();
   } else if (timeLeft >= 10) {
@@ -281,9 +321,17 @@ function endGame() {
   setInitialScreen();
   if (currentScore === 0) {
     document.getElementById("currentQuestion").innerHTML = "You got none right. Prepare to be taken to Shada for the rest of eternity. Or try again. It's up to you.";
+
+    if (playSound) {
     crowdBooingSound.play();
+    }
+
   } else if (currentScore === highScore) {
+
+    if (playSound) {
     newHighScoreSound.play();
+    }
+
     document.getElementById("currentQuestion").innerHTML = "Congratulations! You have a new high score of " + currentScore + ". Play again to see if you can beat it.";
     document.cookie = "highScore=0; expires=Sat, 23 Nov 3000 12:00:00 UTC";
     document.cookie = "highScore="+highScore+"; expires=Sat, 23 Nov 3000 12:00:00 UTC";
@@ -382,7 +430,11 @@ function mainGameSection() {
   // modal to display rules of the game //
 
   rulesBtn.onclick = function() {
-    standardButtonClickSound.play();
+
+    if (playSound) {
+      standardButtonClickSound.play();
+    }
+  
     console.log(playingGame);
     if (playingGame) {
       return;

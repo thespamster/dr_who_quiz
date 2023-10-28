@@ -8,6 +8,7 @@
         <!-- link to custom css code -->
 
         <link rel="stylesheet" href="assets/css/style.css" type="text/css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         
         <!-- browser tab title and a custom icon for the website -->
 
@@ -17,6 +18,7 @@
     <body id="page-style">
         <h1 class="title-style">'30 Seconds to Doomsday'</h1>
         <div id="button-timer-pos">
+            <button type="button" id="soundButton" onclick = "toggleSound()"><i class="fa fa-volume-up" aria-hidden="true"></i></button>
             <button type="button" id="buttonStart">START</button>
             <span id="countdownTimer">00</span>
             <button type="button" id="buttonRules">RULES</button>
@@ -29,7 +31,8 @@
                 <button type="button"  class="answerButton">C</button><span class="answer-style" id="answerThree"></span>
             </div>
             <div id="easier-button-pos">
-                <button type="button" id="easierButton">EASY</button>
+
+                <button type="button" id="easierButton">SIMPLIFY</button>
             </div>
         </div>
         <div id="score-pos">

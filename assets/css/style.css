@@ -64,6 +64,23 @@
     text-align: center;  
 }
 
+#soundButton {
+  padding: 0;
+  background-color: rgb(64, 0, 255);
+  box-shadow: 5px 5px 2px black;
+  color: white;
+  border: none;
+  margin-right: 25px;
+  width: 125px;
+  height: 125px;
+  border-radius: 50%;
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold;
+  font-size: 4em; 
+  text-align: center; 
+  z-index: 1;
+}
+
 #countdownTimer {
     font-family: 'Roboto', sans-serif;
     font-size: 6em;
@@ -130,7 +147,7 @@
     height: 125px;
     border-radius: 50%;
     font-family: 'Roboto', sans-serif;
-    font-size: 2.25em;
+    font-size: 1.5em;
     font-weight: bold; 
     text-align: center; 
     z-index: 1;
@@ -143,6 +160,8 @@
     margin: 5px 0;  
 }
 
+
+
 #score-hiscore-style {
     display: flex;
     justify-content: space-around;
@@ -152,7 +171,7 @@
     color: black;
     background-color: rgba(255, 255, 255, 0.65);
     margin-top: 75px 
-}
+} 
 
 #score-pos {
     position: fixed;
@@ -318,7 +337,7 @@
     height: 85px;
     border-radius: 50%;
     font-family: 'Roboto', sans-serif;
-    font-size: 1.25em;
+    font-size: 1em;
     font-weight: bold; 
     text-align: center; 
   }
@@ -327,8 +346,25 @@
     display: flex;
     justify-content: center;
     position: relative;
-    margin: -5px 0;  
+    margin: -5px 0px;  
   }
+
+  #soundButton {
+    padding: 0;
+    background-color: rgb(64, 0, 255);
+    box-shadow: 5px 5px 2px black;
+    color: white;
+    border: none;
+    margin-right: 25px;
+    width: 85px;
+    height: 85px;
+    border-radius: 50%;
+    font-family: 'Roboto', sans-serif;
+    font-size: 2.5em;
+    font-weight: bold; 
+    text-align: center; 
+    z-index: 1;
+}
     
   #score-hiscore-style {
     display: flex;
