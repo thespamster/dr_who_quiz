@@ -46,7 +46,7 @@ function toggleSound() {
     
   }
 }
-  console.log("toggleSound", playSound);
+  console.log("toggleSound", playSound, "timeLeft ", timeLeft, "playingGame", playingGame);
 }
 
 // switch between start/quit being shown //
@@ -151,6 +151,7 @@ function answerSelected(event){
           }
 
           highlightAnswers();
+          playingGame = false;
           setTimeout(endGame, 2500);
           mainGameSection();
         }
@@ -246,13 +247,14 @@ function askQuestion () {
 
     }
     setInitialScreen();
-    setTimeout(endGame, 2500);
+    // setTimeout(endGame, 2500); //
     playingGame = false;
     easierFlag = false;
     questionsLeft = 42;
     questionToAsk = Math.floor(Math.random() * 42);
     currentScore = 0;
     answerArray = [];
+    setTimeout(endGame, 2500);
     console.log("resetting to allow a new game to start");
    }
 }
