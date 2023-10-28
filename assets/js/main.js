@@ -31,18 +31,36 @@ var crowdBooingSound = new Audio("assets/sounds/booing.wav");
 // toggle sound on/off //
 
 function toggleSound() {
-  var soundButton = document.getElementById("soundButton");
+  var soundButton = document.getElementById("buttonSound");
   if (playSound) {
     playSound = false;
     soundButton.innerHTML = '<i class="fa fa-volume-off" aria-hidden="true">';
     countdownSound.pause();
-    
+    crowdBooingSound.pause();
+    newHighScoreSound.pause();
   } else {
     playSound = true;
     soundButton.innerHTML = '<i class="fa fa-volume-up" aria-hidden="true"></i>';
+    if (playingGame) {
     countdownSound.play();
+    
   }
+}
   console.log("toggleSound", playSound);
+}
+
+// switch between start/quit being shown //
+
+function startQuitDisplayed() {
+  var startButton = document.getElementById("buttonStart");
+  var quitButton = document.getElementById("buttonQuit");
+  if (playingGame) {
+    startButton.innerHTML = "";
+    quitButton.innerHTML = "QUIT";
+  } else {
+    startButton.innerHTML = "START";
+    quitButton.innerHTML = "";
+  }
 }
 
 // set event timers for buttons //
@@ -73,6 +91,7 @@ function answerSelected(event){
     console.log("start button clicked", playingGame);
     if (playingGame === false) {
       playingGame = true;
+      startQuitDisplayed()
       console.log("game started =", playingGame);
       setTimer();
       questionToAsk = Math.floor(Math.random() * questionsLeft);
@@ -92,6 +111,21 @@ function answerSelected(event){
       easierFlag = true;
       simplifyAnswers();
     }
+
+  // what happens when the quit button is clicked //
+
+  } else if (buttonPressed === "QUIT") {
+    currentScore = 0;
+    countdownSound.pause();
+    countdownSound.currentTime = 0;
+    crowdBooingSound.pause();
+    crowdBooingSound.currentTime = 0;
+    newHighScoreSound.pause();
+    newHighScoreSound.currentTime = 0;
+    if (playSound) {
+      endGameSound.play();
+    }
+    endGame();
 
   // what happens when an answer button is clicked //
 
@@ -347,6 +381,7 @@ function endGame() {
   currentScore = 0;
   answerArray = [];
   timeLeft = 0;
+  startQuitDisplayed()
   console.log("resetting to allow a new game to start");
 }
 

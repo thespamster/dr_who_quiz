@@ -19,7 +19,7 @@
     font-size: 3em;
     font-weight: 700;
     color: black;
-    background-color: rgba(255, 255, 255, 0.65);
+    background-color: rgba(255, 255, 255, 0.9);
     text-align: center;
     margin-top: 10px;
     margin-bottom: 10px;  
@@ -52,7 +52,7 @@
 
 #buttonRules {
     padding: 0;
-    background-color: red;
+    background-color: purple;
     box-shadow: 5px 5px 2px black;
     color: white;
     border: none;
@@ -64,7 +64,7 @@
     text-align: center;  
 }
 
-#soundButton {
+#buttonSound {
   padding: 0;
   background-color: rgb(64, 0, 255);
   box-shadow: 5px 5px 2px black;
@@ -77,6 +77,23 @@
   font-family: 'Roboto', sans-serif;
   font-weight: bold;
   font-size: 4em; 
+  text-align: center; 
+  z-index: 1;
+}
+
+#buttonQuit {
+  padding: 0;
+  background-color: rgb(255, 0, 0);
+  box-shadow: 5px 5px 2px black;
+  color: white;
+  border: none;
+  margin-right: 5px;
+  width: 125px;
+  height: 125px;
+  border-radius: 50%;
+  font-family: 'Roboto', sans-serif;
+  font-size: 2em;
+  font-weight: bold; 
   text-align: center; 
   z-index: 1;
 }
@@ -131,7 +148,7 @@
     font-size: 1.75em;
     font-weight: 700;
     color: black;
-    background-color: rgba(255, 255, 255, 0.65);
+    background-color: rgba(255, 255, 255, 0.9);
     margin-top: 10px;
     margin-bottom: 10px; 
     text-align:center; 
@@ -169,7 +186,7 @@
     font-size: 2em;
     font-weight: 700;
     color: black;
-    background-color: rgba(255, 255, 255, 0.65);
+    background-color: rgba(255, 255, 255, 0.9);
     margin-top: 75px 
 } 
 
@@ -230,7 +247,7 @@
     font-size: 1.6em;
     font-weight: 700;
     color: black;
-    background-color: rgba(255, 255, 255, 0.65);
+    background-color: rgba(255, 255, 255, 0.9);
     text-align: center;
     margin-top: 10px;
     margin-bottom: 10px;  
@@ -241,7 +258,7 @@
     font-size: 1.25em;
     font-weight: 600;
     color: black;
-    background-color: rgba(255, 255, 255, 0.65);
+    background-color: rgba(255, 255, 255, 0.9);
     text-align: center;
     margin-top: 10px;
     margin-bottom: 10px;  
@@ -253,24 +270,24 @@
     box-shadow: 5px 5px 2px black;
     color: white;
     border: none;
-    width: 85px;
-    height: 85px;
+    width: 65px;
+    height: 65px;
     border-radius: 50%;
-    font-size: 1.5em;
+    font-size: 1em;
     font-weight: bold; 
     text-align: center;
   }
     
   #buttonRules {
     padding: 0;
-    background-color: red;
+    background-color: purple;
     box-shadow: 5px 5px 2px black;
     color: white;
     border: none;
-    width: 85px;
-    height: 85px;
+    width: 65px;
+    height: 65px;
     border-radius: 50%;
-    font-size: 1.5em;
+    font-size: 1em;
     font-weight: bold; 
     text-align: center;  
   }
@@ -284,7 +301,7 @@
     border: 8px solid black;
     text-align: center;
     padding-top:5px;
-    margin: 0 25px;   
+    margin: 0 15px;   
   }
 
   #button-timer-pos {
@@ -323,7 +340,7 @@
     font-size: 1em;
     font-weight: 700;
     color: black;
-    background-color: rgba(255, 255, 255, 0.65);
+    background-color: rgba(255, 255, 255, 0.9);
     margin-top: 10px;
     margin-bottom: 10px;  
   }
@@ -349,22 +366,41 @@
     margin: -5px 0px;  
   }
 
-  #soundButton {
+  #buttonSound {
     padding: 0;
     background-color: rgb(64, 0, 255);
     box-shadow: 5px 5px 2px black;
     color: white;
     border: none;
-    margin-right: 25px;
-    width: 85px;
-    height: 85px;
+    margin-right: 5px;
+    width: 65px;
+    height: 65px;
     border-radius: 50%;
     font-family: 'Roboto', sans-serif;
-    font-size: 2.5em;
+    font-size: 1.75em;
     font-weight: bold; 
     text-align: center; 
     z-index: 1;
+}  
+
+#buttonQuit {
+  padding: 0;
+  background-color: rgb(255, 0, 0);
+  box-shadow: 5px 5px 2px black;
+  color: white;
+  border: none;
+  margin-right: 5px;
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1em;
+  font-weight: bold; 
+  text-align: center; 
+  z-index: 1;
 }
+
+
     
   #score-hiscore-style {
     display: flex;
@@ -373,7 +409,7 @@
     font-size: 1.5em;
     font-weight: 700;
     color: black;
-    background-color: rgba(255, 255, 255, 0.65);
+    background-color: rgba(255, 255, 255, 0.9);
     margin-top: 75px 
   }
     
@@ -405,7 +441,6 @@
     padding: 20px;
     width: 80%;
   }
-
 }
     
 
