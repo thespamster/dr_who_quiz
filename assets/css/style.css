@@ -51,9 +51,6 @@
     text-align: center;  
 }
 
-#buttonStart:hover {
-    background-color: rgb(7, 175, 7);
-}
 
 #buttonRules {
     cursor: grab;
@@ -70,9 +67,6 @@
     text-align: center;  
 }
 
-#buttonRules:hover {
-  background-color: rgb(211, 9, 211);
-}
 
 #buttonSound {
   cursor: grab;
@@ -92,9 +86,7 @@
   z-index: 1;
 }
 
-#buttonSound:hover {
-  background-color: rgb(0, 119, 255);
-}
+
 
 #buttonQuit {
   cursor: grab;
@@ -114,9 +106,7 @@
   z-index: 1;
 }
 
-#buttonQuit:hover {
-  background-color: rgb(255, 44, 44);
-}
+
 
 #countdownTimer {
     font-family: 'Roboto', sans-serif;
@@ -155,9 +145,7 @@
     z-index: 1;
 }
 
-.answerButton:hover {
-  background-color: rgb(106, 101, 101);
-}
+
 
 #answer-button-pos {
     display: grid;
@@ -196,9 +184,7 @@
     z-index: 1;
 }
 
-#easierButton:hover {
-    background-color: rgb(255, 128, 0);
-}
+
 
 #easier-button-pos {
     display: flex;
@@ -358,9 +344,7 @@
     text-align: center;
   }
 
-  #answerButton:hover {
-    background-color: rgb(106, 101, 101);
-  }
+  
     
   #answer-button-pos {
     display: grid;
@@ -477,6 +461,35 @@
     padding: 20px;
     width: 80%;
   }
+}
+
+@media (hover: hover) {
+  .answerButton:hover {
+    background-color: rgb(251, 239, 8);
+    box-shadow: 5px 5px 2px rgb(0, 0, 0);
+    color: rgb(0, 0, 0);    
+  }
+
+  #buttonStart:hover {
+    background-color: rgb(7, 175, 7);
+}
+
+#buttonRules:hover {
+  background-color: rgb(211, 9, 211);
+}
+
+#buttonSound:hover {
+  background-color: rgb(0, 119, 255);
+}
+
+#buttonQuit:hover {
+  background-color: rgb(255, 44, 44);
+}
+
+#easierButton:hover {
+  background-color: rgb(255, 128, 0);
+}
+
 }
     
 

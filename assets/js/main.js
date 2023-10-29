@@ -21,6 +21,7 @@ var hideDiv = document.getElementById("answer-button-pos");
 var soundbutton;
 var startButton;
 var quitButton;
+var previousHighScore;
 
 // game sounds. royalty free. credit in readme. //
 
@@ -105,7 +106,8 @@ function answerSelected(event){
       console.log("game started =", playingGame);
       setTimer();
       questionToAsk = Math.floor(Math.random() * questionsLeft);
-      askQuestion(questionArray, questionsLeft, questionToAsk);
+      // askQuestion(questionArray, questionsLeft, questionToAsk); //
+      askQuestion();
     }
 
   // what happens when the simplify button is clicked //
@@ -129,6 +131,14 @@ function answerSelected(event){
       playingGame = false;
       startQuitDisplayed();
     currentScore = 0;
+    if (highScore > previousHighScore) {
+      highScore = previousHighScore;
+      if (highScore < 10) {
+        document.getElementById("highScore").innerHTML = "Best 0"+highScore;
+        } else {
+          document.getElementById("highScore").innerHTML = "Best "+highScore;
+        }
+    }
     countdownSound.pause();
     countdownSound.currentTime = 0;
     crowdBooingSound.pause();
@@ -138,7 +148,9 @@ function answerSelected(event){
     if (playSound) {
       endGameSound.play();
     }
-    setTimeout(endGame, 2500);
+    playGame = false;
+    timeLeft = 0;
+    endGame();
   }
 
   // what happens when an answer button is clicked //
@@ -209,6 +221,8 @@ function checkCookie() {
     getNumber = parseInt(setHiScore);
     console.log("getNumber", getNumber);
     highScore = getNumber;
+    previousHighScore = highScore;
+    console.log("previousHighScore =", previousHighScore);
     if (highScore < 10) {
       document.getElementById("highScore").innerHTML = "Best 0"+highScore;
       } else {
@@ -217,7 +231,7 @@ function checkCookie() {
   }
 }
 
-function askQuestion () {
+function askQuestion() {
   correctPos = 0;
   console.log("playing game", questionsLeft, questionToAsk);
   if (questionsLeft > 0) {
@@ -226,6 +240,7 @@ function askQuestion () {
 
     // ask a question //
 
+    console.log("QUESTION PROBLEM IS HERE", questionToAsk);
     currentQuestion = document.getElementById("currentQuestion");
     currentQuestion.innerHTML = questionArray[questionToAsk].question;
 
@@ -274,7 +289,8 @@ function askQuestion () {
     questionToAsk = Math.floor(Math.random() * 42);
     currentScore = 0;
     answerArray = [];
-    setTimeout(endGame, 2500);
+    timeLeft = 0;
+    endGame();
     console.log("resetting to allow a new game to start");
    }
 }
@@ -352,8 +368,9 @@ function timer() {
     }
     document.getElementById("countdownTimer").innerHTML = "00";
     playingGame = false;
+    timeLeft = 0;
     startQuitDisplayed();
-    setTimeout(endGame, 2500);
+    endGame();
   } else if (timeLeft >= 10) {
     document.getElementById("countdownTimer").innerHTML = timeLeft;
   } else {
@@ -385,6 +402,7 @@ function endGame() {
     }
   } else if (currentScore === highScore) {
     if (playSound) {
+    prevHighScore = highScore;
     newHighScoreSound.play();
     }
     document.getElementById("currentQuestion").innerHTML = "Congratulations! You have a new high score of " + currentScore + ". Play again to see if you can beat it.";
@@ -395,13 +413,13 @@ function endGame() {
   } else if (currentScore >=10 && currentScore !== highScore) {
     document.getElementById("currentQuestion").innerHTML = "You scored "+currentScore+". Well done, worthy of a reward. Would you like a jelly baby? Press START to play again.";
   } 
-  playingGame = false;
+  // playingGame = false; //
   easierFlag = false;
   questionsLeft = 42;
   questionToAsk = Math.floor(Math.random() * 42);
   currentScore = 0;
   answerArray = [];
-  timeLeft = 0;
+  // timeLeft = 0; //
   // setTimeout(startQuitDisplayed, 2500); //
   console.log("resetting to allow a new game to start");
 }
@@ -452,17 +470,21 @@ function highlightAnswers() {
     clearInterval(timerRunning);
     displayedAnswerArray[correctPos].style.backgroundColor = "green";
     displayedAnswerArray[correctPos].style.color = "white";
+    if (incorrectPos !== -1) {
     displayedAnswerArray[incorrectPos].style.backgroundColor = "red";
     displayedAnswerArray[incorrectPos].style.color = "white";
     setTimeout (resetButtonColour, 2500);
+    }
   }
 }
 
 function resetButtonColour() {
   displayedAnswerArray[correctPos].style.backgroundColor = "white";
   displayedAnswerArray[correctPos].style.color = "black";
+  if (incorrectPos !== -1) {
   displayedAnswerArray[incorrectPos].style.backgroundColor ="white";
   displayedAnswerArray[incorrectPos].style.color = "black";
+}
 }
 
 // main game section //
