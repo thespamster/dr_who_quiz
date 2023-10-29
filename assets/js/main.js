@@ -16,12 +16,12 @@ var easierFlag = false;  // simplify button been clicked? //
 var playSound = true;   // sound effects enabled/disabled //
 var answerArray = []; // answer array //
 var questionArray = []; // question array //
-var displayedAnswerArray =[];
-var hideDiv = document.getElementById("answer-button-pos");
-var soundbutton;
-var startButton;
-var quitButton;
-var previousHighScore;
+var displayedAnswerArray =[]; // the order that answers are displayed in //
+var hideDiv = document.getElementById("answer-button-pos"); // the div that contains the answer buttons and answer spans //
+var soundButton; // the sound on or off //
+var startButton;  // ???? //
+var quitButton; // ???? //
+var previousHighScore; // if someone quits with a high score, this is the score to display //
 
 // game sounds. royalty free. credit in readme. //
 
@@ -33,6 +33,48 @@ var countdownSound = new Audio("assets/sounds/timer.wav");
 var newHighScoreSound = new Audio("assets/sounds/clapping.wav");
 var endGameSound = new Audio("assets/sounds/fail.wav");
 var crowdBooingSound = new Audio("assets/sounds/booing.wav");
+
+// create question array //
+
+function createQuestionArray() {
+  questionArray = [];
+  fetch("./assets/questions.json")
+  .then((res) => {
+    return res.json();
+  }).then ((jsonQuestions) => {
+    questionArray = jsonQuestions;
+    console.log(questionArray); // REMOVE THIS //
+  })
+  .catch((err) => {
+    console.error(err);
+  });
+}
+
+// check for high score cookie //
+function checkCookie() {
+  hiScoreCookie = document.cookie;
+  console.log("cookie", hiScoreCookie); // REMOVE THIS //
+  if (hiScoreCookie === "") {
+    alert("This site uses a cookie to store your high score. Please click OK to accept this cookie and play the quiz.");
+    document.cookie = "highScore=0; expires=Sat, 23 Nov 3000 12:00:00 UTC";
+    highScore = 0;
+    console.log("cookie:", hiScoreCookie); // REMOVE THIS //
+  } else {
+    partScoreCookie = document.cookie.split("=");
+    setHiScore = partScoreCookie[1];
+    console.log("setHiScore", setHiScore); // REMOVE THIS //
+    getNumber = parseInt(setHiScore);
+    console.log("getNumber", getNumber); // REMOVE THIS //
+    highScore = getNumber;
+    previousHighScore = highScore;
+    console.log("previousHighScore =", previousHighScore); // REMOVE THIS //
+    if (highScore < 10) {
+      document.getElementById("highScore").innerHTML = "Best 0"+highScore;
+    } else {
+      document.getElementById("highScore").innerHTML = "Best "+highScore;
+    }
+  }
+}
 
 // toggle sound on/off //
 
@@ -48,11 +90,10 @@ function toggleSound() {
     playSound = true;
     soundButton.innerHTML = '<i class="fa fa-volume-up" aria-hidden="true"></i>';
     if (playingGame) {
-    countdownSound.play();
-    
+      countdownSound.play();
+    }
   }
-}
-  console.log("toggleSound", playSound, "timeLeft ", timeLeft, "playingGame", playingGame);
+  console.log("toggleSound", playSound, "timeLeft ", timeLeft, "playingGame", playingGame); // REMOVE THIS //
 }
 
 // switch between start/quit being shown //
@@ -81,7 +122,7 @@ function answerSelected(event){
 
   //event.target is the button that was clicked //
 
-  console.log("js42: button pressed is", buttonPressed, playingGame, easierFlag);
+  console.log("js42: button pressed is", buttonPressed, playingGame, easierFlag); // REMOVE THIS //
 
   // what happens when the start button is clicked //
 
@@ -90,32 +131,25 @@ function answerSelected(event){
     newHighScoreSound.currentTime = 0;
     crowdBooingSound.pause();
     crowdBooingSound.currentTime = 0;
-    
     if (playSound) {
       standardButtonClickSound.play();
     }
-    console.log("start button clicked", playingGame);
+    console.log("start button clicked", playingGame); // REMOVE THIS //
     if (playingGame === false) {
-
-      // SHOW DIV //
-
       hideDiv.style.visibility = "visible";
-
       playingGame = true;
       startQuitDisplayed();
-      console.log("game started =", playingGame);
+      console.log("game started =", playingGame); // REMOVE THIS //
       setTimer();
       questionToAsk = Math.floor(Math.random() * questionsLeft);
-      // askQuestion(questionArray, questionsLeft, questionToAsk); //
       askQuestion();
     }
 
   // what happens when the simplify button is clicked //
 
   } else if (buttonPressed === "SIMPLIFY") {
-    console.log("easier button clicked", playingGame, easierFlag, correctPos);
-    if (playingGame && !easierFlag){
-
+    console.log("easier button clicked", playingGame, easierFlag, correctPos); // REMOVE THIS //
+    if (playingGame && !easierFlag){ // CHANGE THIS do not need to if statements //
       if (playSound) {
         standardButtonClickSound.play();
         simplifyButtonSound.play();
@@ -130,117 +164,70 @@ function answerSelected(event){
     if (playingGame === true) {
       playingGame = false;
       startQuitDisplayed();
-    currentScore = 0;
-    if (highScore > previousHighScore) {
-      highScore = previousHighScore;
-      if (highScore < 10) {
-        document.getElementById("highScore").innerHTML = "Best 0"+highScore;
+      currentScore = 0;
+      if (highScore > previousHighScore) {
+        highScore = previousHighScore;
+        if (highScore < 10) {
+          document.getElementById("highScore").innerHTML = "Best 0"+highScore;
         } else {
           document.getElementById("highScore").innerHTML = "Best "+highScore;
         }
+      }
+      countdownSound.pause();
+      countdownSound.currentTime = 0;
+      crowdBooingSound.pause();
+      crowdBooingSound.currentTime = 0;
+      newHighScoreSound.pause();
+      newHighScoreSound.currentTime = 0;
+      if (playSound) {
+        endGameSound.play();
+      }
+      playGame = false;
+      timeLeft = 0;
+      endGame(); // NO PAUSE BEFORE END GAME //
     }
-    countdownSound.pause();
-    countdownSound.currentTime = 0;
-    crowdBooingSound.pause();
-    crowdBooingSound.currentTime = 0;
-    newHighScoreSound.pause();
-    newHighScoreSound.currentTime = 0;
-    if (playSound) {
-      endGameSound.play();
-    }
-    playGame = false;
-    timeLeft = 0;
-    endGame();
-  }
 
   // what happens when an answer button is clicked //
 
   } else {
     for (i=0; i<3; i++) {
       if (buttonPressed === answerButtons[i].innerText) {
-        console.log("answer",answerButtons[i].innerText,"clicked",  correctPos);
+        console.log("answer",answerButtons[i].innerText,"clicked",  correctPos); // REMOVE THIS //
         if (correctPos === i && playingGame) {
-          incorrectPos = -1; // no incorrectPos //
-
+          incorrectPos = -1;
           if (playSound) {
             correctAnswerSound.play();
           }
-
           highlightAnswers();
-          
-          // REMOVE OPTION TO QUIT
-
           quitButton.innerHTML = "";
-
           setTimeout(contGame, 1500);
         } else if (correctPos !== i && answerArray[i] !== "" && playingGame) {
-          console.log("wrong answer", answerArray[i], correctPos);
-          incorrectPos = i; // set incorrect answer //
-
+          console.log("wrong answer", answerArray[i], correctPos); // REMOVE THIS //
+          incorrectPos = i;
           if (playSound) {
-          incorrectAnswerSound.play();
+            incorrectAnswerSound.play();
           }
-
           highlightAnswers();
           playingGame = false;
           startQuitDisplayed();
-          setTimeout(endGame, 2500);
-          mainGameSection();
+          setTimeout(endGame, 2500); // 2.5 SECOND PAUSE BEFORE END GAME //
+          mainGameSection(); // DO I NEED THIS?? //
         }
       }
     }
   }
 }
 
-// checks for hi-score cookie //
-
-function checkCookie() {
-
-  // first try to get the high score cookie //
-
-  hiScoreCookie = document.cookie;
-  console.log("cookie", hiScoreCookie);
-
-  // check if it exists //
-
-  if (hiScoreCookie === "") {
-
-    // if it doesn't then create it and set it to 0 //
-
-    alert("This site uses a cookie to store your high score. Please click OK to accept this cookie and play the quiz.");
-    document.cookie = "highScore=0; expires=Sat, 23 Nov 3000 12:00:00 UTC";
-    highScore = 0;
-    console.log("cookie:", hiScoreCookie);
-
-    // if it does make it the high score //
-
-  } else {
-    partScoreCookie = document.cookie.split("=");
-    setHiScore = partScoreCookie[1];
-    console.log("setHiScore", setHiScore);
-    getNumber = parseInt(setHiScore);
-    console.log("getNumber", getNumber);
-    highScore = getNumber;
-    previousHighScore = highScore;
-    console.log("previousHighScore =", previousHighScore);
-    if (highScore < 10) {
-      document.getElementById("highScore").innerHTML = "Best 0"+highScore;
-      } else {
-        document.getElementById("highScore").innerHTML = "Best "+highScore;
-      }
-  }
-}
-
 function askQuestion() {
   correctPos = 0;
-  console.log("playing game", questionsLeft, questionToAsk);
+  console.log("playing game", questionsLeft, questionToAsk); // REMOVE THIS //
   if (questionsLeft > 0) {
     easierFlag = false;
-    console.log("easierFlag", easierFlag);
+    console.log("easierFlag", easierFlag); // REMOVE THIS //
 
     // ask a question //
 
-    console.log("QUESTION PROBLEM IS HERE", questionToAsk);
+    console.log("QUESTION PROBLEM IS HERE", questionToAsk); // REMOVE THIS //
     currentQuestion = document.getElementById("currentQuestion");
     currentQuestion.innerHTML = questionArray[questionToAsk].question;
 
@@ -251,7 +238,7 @@ function askQuestion() {
       rndNum3 = Math.floor(Math.random() * 3);
       if (answerArray[rndNum3] === undefined) {
         answerArray[rndNum3] = questionArray[questionToAsk].answers[i];
-        console.log("answerArray", answerArray);
+        console.log("answerArray", answerArray); // REMOVE THIS //
       } else {
         i--;
       }
@@ -260,12 +247,12 @@ function askQuestion() {
     // get the correct answer //
 
     correctAnswer = questionArray[questionToAsk].answers[0];
-    console.log("correctAnswer", correctAnswer);
+    console.log("correctAnswer", correctAnswer); // REMOVE THIS //
 
     // display answers //
 
     displayAnswers();
-    console.log("THIS ONE", correctPos);
+    console.log("THIS ONE", correctPos); // REMOVE THIS //
 
     // remove asked question from array //
 
@@ -275,14 +262,12 @@ function askQuestion() {
 
     questionsLeft --;
   } else {
-    console.log("NO MORE QUESTIONS LEFT");
+    console.log("NO MORE QUESTIONS LEFT"); // REMOVE THIS //
     clearInterval(timerRunning);
     if (currentScore === 84) {
       alert("Wow, have you got access to the Matrix? You got all the questions right. You win! No need to play again.");
     }
-
     setInitialScreen();
-    // setTimeout(endGame, 2500); //
     playingGame = false;
     easierFlag = false;
     questionsLeft = 42;
@@ -291,7 +276,7 @@ function askQuestion() {
     answerArray = [];
     timeLeft = 0;
     endGame();
-    console.log("resetting to allow a new game to start");
+    console.log("resetting to allow a new game to start"); // REMOVE THIS //
    }
 }
 
@@ -307,12 +292,12 @@ function displayAnswers() {
       correctPos = i;
     }
   }
-  console.log("display answers function correctPos", correctPos);
+  console.log("display answers function correctPos", correctPos); // REMOVE THIS //
 }
 
 function simplifyAnswers() {
   questionToRemove = Math.floor(Math.random() * 2);
-  console.log("easier button clicked", correctAnswer, "questionToRemove", questionToRemove);
+  console.log("easier button clicked", correctAnswer, "questionToRemove", questionToRemove); // REMOVE THIS //
   while (questionToRemove === correctPos) {
     questionToRemove = Math.floor(Math.random() * 2);
     console.log("questionToRemove", questionToRemove);
@@ -320,11 +305,11 @@ function simplifyAnswers() {
   for (i = 0; i < 3; i++) {
     if (answerArray[i] !== correctAnswer && i === questionToRemove) {
       answerArray[i] = "";
-      console.log("answerArray", answerArray);
+      console.log("answerArray", answerArray); // REMOVE THIS //
     }
   }
   displayAnswers();
-  console.log("simplify answers function", answerArray, correctPos);
+  console.log("simplify answers function", answerArray, correctPos); // REMOVE THIS //
 }
 
 // how the pregame screen looks after the first game has ended //
@@ -336,9 +321,7 @@ function setInitialScreen() {
   document.getElementById("answerThree").innerHTML = "";
   document.getElementById("countdownTimer").innerHTML = "00";
   document.getElementById("currentScore").innerHTML = "Score 00";
-
-  // HIDE DIV //
-  console.log("setInitialScreen", hideDiv);
+  console.log("setInitialScreen", hideDiv); // REMOVE THIS //
   hideDiv.style.visibility = "hidden";
 }
 
@@ -377,33 +360,28 @@ function timer() {
     document.getElementById("countdownTimer").innerHTML = "0" + timeLeft;
     quitButton.innerHTML = "";
   }
-    console.log(timeLeft);
-    timeLeft --;
+  console.log(timeLeft); // REMOVE THIS //
+  timeLeft --;
 }
 
-// end game function //
+// what happens at the end of a game //
 
 function endGame() {
   console.log("end game", timerRunning, currentScore, highScore);
   clearInterval(timerRunning);
-  console.log("after clear interval", timerRunning);
-  console.log("ENDgame function, you lose!");
-  console.log("ENDGAME ", currentScore, highScore);
-
-  // LOOK AT THIS //
-
+  console.log("after clear interval", timerRunning); // REMOVE THIS //
+  console.log("ENDgame function, you lose!");  // REMOVE THIS //
+  console.log("ENDGAME ", currentScore, highScore); // REMOVE THIS //
   setInitialScreen();
-
   if (currentScore === 0) {
     document.getElementById("currentQuestion").innerHTML = "You got none right. Prepare to be taken to Shada for the rest of eternity. Or try again. It's up to you.";
-
     if (playSound) {
     crowdBooingSound.play();
     }
   } else if (currentScore === highScore) {
     if (playSound) {
-    prevHighScore = highScore;
-    newHighScoreSound.play();
+      prevHighScore = highScore;
+      newHighScoreSound.play();
     }
     document.getElementById("currentQuestion").innerHTML = "Congratulations! You have a new high score of " + currentScore + ". Play again to see if you can beat it.";
     document.cookie = "highScore=0; expires=Sat, 23 Nov 3000 12:00:00 UTC";
@@ -413,15 +391,13 @@ function endGame() {
   } else if (currentScore >=10 && currentScore !== highScore) {
     document.getElementById("currentQuestion").innerHTML = "You scored "+currentScore+". Well done, worthy of a reward. Would you like a jelly baby? Press START to play again.";
   } 
-  // playingGame = false; //
   easierFlag = false;
   questionsLeft = 42;
   questionToAsk = Math.floor(Math.random() * 42);
   currentScore = 0;
   answerArray = [];
-  // timeLeft = 0; //
-  // setTimeout(startQuitDisplayed, 2500); //
-  console.log("resetting to allow a new game to start");
+  createQuestionArray();
+  console.log("resetting to allow a new game to start"); // REMOVE THIS //
 }
 
 function contGame() {
@@ -438,7 +414,7 @@ function contGame() {
       document.getElementById("highScore").innerHTML = "Best "+highScore;
     }
   }
-  console.log("current score", currentScore);
+  console.log("current score", currentScore); // REMOVE THIS //
   scoreDisplay = document.getElementById("currentScore");
   if (currentScore < 10) {
     scoreDisplay.innerHTML = "Score 0" + currentScore;
@@ -448,11 +424,7 @@ function contGame() {
   questionToAsk = Math.floor(Math.random() * questionsLeft);
   setTimer();
   askQuestion();
-
-// ADD OPTION TO QUIT //
-
   quitButton.innerHTML = "QUIT";
-
 }
 
 // highlight correct(in green)  and incorrect(in red) answers //
@@ -493,34 +465,15 @@ function mainGameSection() {
   var rulesModal = document.getElementById("rulesModal");
   var rulesBtn = document.getElementById("buttonRules");
   var rulesSpan = document.getElementsByClassName("close")[0];
-
-  // HIDE DIV //
-
-  // hideDiv.style.visibility = "hidden"; //
-
-  // array of questions and answers fetched from json file //
-
-  questionArray = [];
-    fetch("./assets/questions.json")
-    .then((res) => {
-      return res.json();
-    }).then ((jsonQuestions) => {
-      questionArray = jsonQuestions;
-      console.log(questionArray);
-    })
-    .catch((err) => {
-      console.error(err);
-    });
+  createQuestionArray();
 
   // modal to display rules of the game //
 
   rulesBtn.onclick = function() {
-
     if (playSound) {
       standardButtonClickSound.play();
     }
-  
-    console.log(playingGame);
+    console.log(playingGame); // REMOVE THIS //
     if (playingGame) {
       return;
     } else {
@@ -536,6 +489,8 @@ function mainGameSection() {
     }
   }
 }
+
+// start the game //
 
 setTimeout(checkCookie, 500);
 hideDiv.style.visibility = "hidden";
