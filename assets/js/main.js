@@ -184,7 +184,9 @@ function answerSelected(event){
       }
       playGame = false;
       timeLeft = 0;
-      endGame(); // NO PAUSE BEFORE END GAME //
+      startButton.innerHTML = "";
+      quitButton.innerHTML = "";
+      setTimeout(endGame, 1500); 
     }
 
   // what happens when an answer button is clicked //
@@ -209,9 +211,8 @@ function answerSelected(event){
           }
           highlightAnswers();
           playingGame = false;
-          startQuitDisplayed();
-          setTimeout(endGame, 2500); // 2.5 SECOND PAUSE BEFORE END GAME //
-          mainGameSection(); // DO I NEED THIS?? //
+          quitButton.innerHTML = "";
+          setTimeout(endGame, 1500); 
         }
       }
     }
@@ -352,7 +353,7 @@ function timer() {
     document.getElementById("countdownTimer").innerHTML = "00";
     playingGame = false;
     timeLeft = 0;
-    startQuitDisplayed();
+    // startQuitDisplayed(); //
     endGame();
   } else if (timeLeft >= 10) {
     document.getElementById("countdownTimer").innerHTML = timeLeft;
@@ -397,6 +398,7 @@ function endGame() {
   currentScore = 0;
   answerArray = [];
   createQuestionArray();
+  setTimeout(startQuitDisplayed, 2500);
   console.log("resetting to allow a new game to start"); // REMOVE THIS //
 }
 
