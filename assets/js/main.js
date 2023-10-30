@@ -149,7 +149,7 @@ function answerSelected(event){
 
   } else if (buttonPressed === "SIMPLIFY") {
     console.log("easier button clicked", playingGame, easierFlag, correctPos); // REMOVE THIS //
-    if (playingGame && !easierFlag){ // CHANGE THIS do not need to if statements //
+    if (playingGame && !easierFlag){ // CHANGE THIS do not need two if statements //
       if (playSound) {
         standardButtonClickSound.play();
         simplifyButtonSound.play();
