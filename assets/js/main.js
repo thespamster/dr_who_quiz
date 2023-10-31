@@ -1,27 +1,23 @@
 
 // game variables //
 
-var correctPos;        // of answer //
-var timeLeft;           // on timer //
-var incorrectPos;      // of wrong answer //
-// var highlightedButton1; // turn button green //
-// var highlightedButton2; // turn button red //
-var answerButtons;       // array of answer buttons //
-var currentScore = 0;   // current score //
-var highScore = 0;    // high score //
-var questionsLeft = 42; // number of questions left to ask //
-var questionToAsk = Math.floor(Math.random() * 42); // random start question //
-var playingGame = false; // game in progress? //
-var easierFlag = false;  // simplify button been clicked? //
-var playSound = true;   // sound effects enabled/disabled //
-var answerArray = []; // answer array //
-var questionArray = []; // question array //
-var displayedAnswerArray =[]; // the order that answers are displayed in //
-var hideDiv = document.getElementById("answer-button-pos"); // the div that contains the answer buttons and answer spans //
-var soundButton; // the sound on or off //
-// var startButton;  // ???? //
-// var quitButton; // ???? //
-var previousHighScore; // if someone quits with a high score, this is the score to display //
+var correctPos;
+var timeLeft;
+var incorrectPos;
+var answerButtons;
+var currentScore = 0;
+var highScore = 0;
+var questionsLeft = 42;
+var questionToAsk = Math.floor(Math.random() * 42);
+var playingGame = false;
+var easierFlag = false;
+var playSound = true;
+var answerArray = [];
+var questionArray = [];
+var displayedAnswerArray =[];
+var hideDiv = document.getElementById("answer-button-pos");
+var soundButton;
+var previousHighScore;
 
 // game sounds. royalty free. credit in readme. //
 
@@ -34,87 +30,13 @@ var newHighScoreSound = new Audio("assets/sounds/clapping.wav");
 var endGameSound = new Audio("assets/sounds/fail.wav");
 var crowdBooingSound = new Audio("assets/sounds/booing.wav");
 
-// create question array //
-
-function createQuestionArray() {
-  questionArray = [];
-  fetch("./assets/questions.json")
-  .then((res) => {
-    return res.json();
-  }).then ((jsonQuestions) => {
-    questionArray = jsonQuestions;
-  })
-  .catch((err) => {
-    console.error(err);
-  });
-}
-
-// check for high score cookie //
-function checkCookie() {
-  hiScoreCookie = document.cookie;
-  if (hiScoreCookie === "") {
-    alert("This site uses a cookie to store your high score. Please click OK to accept this cookie and play the quiz.");
-    document.cookie = "highScore=0; expires=Sat, 23 Nov 3000 12:00:00 UTC";
-    highScore = 0;
-  } else {
-    partScoreCookie = document.cookie.split("=");
-    setHiScore = partScoreCookie[1];
-    getNumber = parseInt(setHiScore);
-    highScore = getNumber;
-    previousHighScore = highScore;
-    if (highScore < 10) {
-      document.getElementById("highScore").innerHTML = "Best 0"+highScore;
-    } else {
-      document.getElementById("highScore").innerHTML = "Best "+highScore;
-    }
-  }
-}
-
-// toggle sound on/off //
-
-function toggleSound() {
-  soundButton = document.getElementById("buttonSound");
-  if (playSound) {
-    playSound = false;
-    soundButton.innerHTML = '<i class="fa fa-volume-off" aria-hidden="true">';
-    countdownSound.pause();
-    crowdBooingSound.pause();
-    newHighScoreSound.pause();
-  } else {
-    playSound = true;
-    soundButton.innerHTML = '<i class="fa fa-volume-up" aria-hidden="true"></i>';
-    if (playingGame) {
-    countdownSound.play(); // NOT THIS ONE 84 //
-    }
-  }
-}
-
-// switch between start/quit being shown //
-
-function startQuitDisplayed() {
-  startButton = document.getElementById("buttonStart");
-  quitButton = document.getElementById("buttonQuit");
-  if (playingGame) {
-    startButton.innerHTML = "";
-    quitButton.innerHTML = "QUIT";
-  } else {
-    startButton.innerHTML = "START";
-    quitButton.innerHTML = "";
-  }
-}
-
-// set event timers for buttons //
-
-document.querySelectorAll("button").forEach((b)=>b.addEventListener("click", answerSelected));
+// event listener function, handles all relevant button presses //
 
 function answerSelected(event){
   var button = event.target;
   var buttonPressed = button.innerText;
   event.preventDefault();
   answerButtons = document.getElementsByClassName("answerButton");
-
-  // what happens when the start button is clicked //
-
   if (buttonPressed === "START") {
     newHighScoreSound.pause();
     newHighScoreSound.currentTime = 0;
@@ -131,20 +53,12 @@ function answerSelected(event){
       questionToAsk = Math.floor(Math.random() * questionsLeft);
       askQuestion();
     }
-
-  // what happens when the simplify button is clicked //
-
   } else if (buttonPressed === "SIMPLIFY") {
-    // if (playingGame && !easierFlag){ // CHANGE THIS do not need two if statements //
       if (playingGame && !easierFlag && playSound) {
-        // standardButtonClickSound.play(); //
         simplifyButtonSound.play();
       }
       easierFlag = true;
       simplifyAnswers();
-
-    // what happens when the quit button is clicked //
-
     } else if (buttonPressed === "QUIT") {
     if (playingGame === true) {
       playingGame = false;
@@ -173,9 +87,6 @@ function answerSelected(event){
       quitButton.innerHTML = "";
       setTimeout(endGame, 1500); 
     }
-
-  // what happens when an answer button is clicked //
-
   } else {
     for (i=0; i<3; i++) {
       if (buttonPressed === answerButtons[i].innerText) {
@@ -202,18 +113,14 @@ function answerSelected(event){
   }
 }
 
+// asks a question and randomises the answers positions //
+
 function askQuestion() {
   correctPos = 0;
   easierFlag = false;
   if (questionsLeft > 0) {
-
-    // ask a question //
-
     currentQuestion = document.getElementById("currentQuestion");
     currentQuestion.innerHTML = questionArray[questionToAsk].question;
-
-    // then randomise answers //
-
     answerArray = [];
     for (i = 0; i < 3; i++) {
       rndNum3 = Math.floor(Math.random() * 3);
@@ -228,10 +135,76 @@ function askQuestion() {
     questionArray.splice(questionToAsk, 1);
     questionsLeft --;
   } else {
-    console.log("NO MORE QUESTIONS LEFT"); // REMOVE THIS //
     endGame();
    }
 }
+
+// check for high score cookie //
+
+function checkCookie() {
+  hiScoreCookie = document.cookie;
+  if (hiScoreCookie === "") {
+    alert("This site uses a cookie to store your high score. Please click OK to accept this cookie and play the quiz.");
+    document.cookie = "highScore=0; expires=Sat, 23 Nov 3000 12:00:00 UTC";
+    highScore = 0;
+  } else {
+    partScoreCookie = document.cookie.split("=");
+    setHiScore = partScoreCookie[1];
+    getNumber = parseInt(setHiScore);
+    highScore = getNumber;
+    previousHighScore = highScore;
+    if (highScore < 10) {
+      document.getElementById("highScore").innerHTML = "Best 0"+highScore;
+    } else {
+      document.getElementById("highScore").innerHTML = "Best "+highScore;
+    }
+  }
+}
+
+// displays score, high score, sets the timer and asks a question //
+
+function contGame() {
+  if (easierFlag) {
+    currentScore ++;
+  } else {
+    currentScore +=2;
+  }
+  if (currentScore > highScore) {
+    highScore = currentScore;
+    if (highScore < 10) {
+      document.getElementById("highScore").innerHTML = "Best 0"+highScore;
+    } else {
+      document.getElementById("highScore").innerHTML = "Best "+highScore;
+    }
+  }
+  scoreDisplay = document.getElementById("currentScore");
+  if (currentScore < 10) {
+    scoreDisplay.innerHTML = "Score 0" + currentScore;
+  } else {
+    scoreDisplay.innerHTML = "Score "+currentScore;
+  }
+  questionToAsk = Math.floor(Math.random() * questionsLeft);
+  setTimer();
+  askQuestion();
+  quitButton.innerHTML = "QUIT";
+}
+
+// create question array //
+
+function createQuestionArray() {
+  questionArray = [];
+  fetch("./assets/questions.json")
+  .then((res) => {
+    return res.json();
+  }).then ((jsonQuestions) => {
+    questionArray = jsonQuestions;
+  })
+  .catch((err) => {
+    console.error(err);
+  });
+}
+
+// display answers //
 
 function displayAnswers() {
   answerOne = document.getElementById("answerOne");
@@ -245,67 +218,6 @@ function displayAnswers() {
       correctPos = i;
     }
   }
-}
-
-function simplifyAnswers() {
-  questionToRemove = Math.floor(Math.random() * 2);
-  while (questionToRemove === correctPos) {
-    questionToRemove = Math.floor(Math.random() * 2);
-  }
-  for (i = 0; i < 3; i++) {
-    if (answerArray[i] !== correctAnswer && i === questionToRemove) {
-      answerArray[i] = "";
-    }
-  }
-  displayAnswers();
-}
-
-// how the pregame screen looks //
-
-function setInitialScreen() {
-  document.getElementById("currentQuestion").innerHTML = "Press Start to play or Rules for how to play the quiz.";
-  document.getElementById("answerOne").innerHTML = "";
-  document.getElementById("answerTwo").innerHTML = "";
-  document.getElementById("answerThree").innerHTML = "";
-  document.getElementById("countdownTimer").innerHTML = "00";
-  document.getElementById("currentScore").innerHTML = "Score 00";
-  hideDiv.style.visibility = "hidden";
-}
-
-// set the 30 second timer function //
-
-function setTimer() {
-  timerMusic = setTimeout(timerSound, 1000);
-  timeLeft = 30;
-  timerRunning = setInterval(timer, 1000);
-}
-
-function timerSound() {
-  if (playSound && playingGame) {
-  countdownSound.play();
-  }
-}
-
-// the actual timer function //
-
-function timer() {
-  if (timeLeft < 0) {
-    countdownSound.pause();
-    countdownSound.currentTime = 0;
-    if (playSound) {
-      endGameSound.play();
-    }
-    document.getElementById("countdownTimer").innerHTML = "00";
-    // playingGame = false;
-    // timeLeft = 0;
-    endGame();
-  } else if (timeLeft >= 10) {
-    document.getElementById("countdownTimer").innerHTML = timeLeft;
-  } else {
-    document.getElementById("countdownTimer").innerHTML = "0" + timeLeft;
-    quitButton.innerHTML = "";
-  }
-  timeLeft --;
 }
 
 // what happens at the end of a game //
@@ -348,33 +260,6 @@ function endGame() {
   answerArray = [];
   createQuestionArray();
   setTimeout(startQuitDisplayed, 2500);
-  console.log("THIS IS THE END OF GAME. ALL RESET TO PLAY AGAIN"); // REMOVE THIS //
-}
-
-function contGame() {
-  if (easierFlag) {
-    currentScore ++;
-  } else {
-    currentScore +=2;
-  }
-  if (currentScore > highScore) {
-    highScore = currentScore;
-    if (highScore < 10) {
-      document.getElementById("highScore").innerHTML = "Best 0"+highScore;
-    } else {
-      document.getElementById("highScore").innerHTML = "Best "+highScore;
-    }
-  }
-  scoreDisplay = document.getElementById("currentScore");
-  if (currentScore < 10) {
-    scoreDisplay.innerHTML = "Score 0" + currentScore;
-  } else {
-    scoreDisplay.innerHTML = "Score "+currentScore;
-  }
-  questionToAsk = Math.floor(Math.random() * questionsLeft);
-  setTimer();
-  askQuestion();
-  quitButton.innerHTML = "QUIT";
 }
 
 // highlight correct(in green)  and incorrect(in red) answers //
@@ -387,7 +272,7 @@ function highlightAnswers() {
     clearInterval(timerRunning);
     displayedAnswerArray[correctPos].style.backgroundColor = "green";
     displayedAnswerArray[correctPos].style.color = "white";
-    setTimeout (resetButtonColour, 1000);
+    setTimeout (resetAnswerColour, 1000);
   } else {
     clearInterval(timerRunning);
     displayedAnswerArray[correctPos].style.backgroundColor = "green";
@@ -395,17 +280,8 @@ function highlightAnswers() {
     if (incorrectPos !== -1) {
     displayedAnswerArray[incorrectPos].style.backgroundColor = "red";
     displayedAnswerArray[incorrectPos].style.color = "white";
-    setTimeout (resetButtonColour, 2500);
+    setTimeout (resetAnswerColour, 2500);
     }
-  }
-}
-
-function resetButtonColour() {
-  displayedAnswerArray[correctPos].style.backgroundColor = "white";
-  displayedAnswerArray[correctPos].style.color = "black";
-  if (incorrectPos !== -1) {
-  displayedAnswerArray[incorrectPos].style.backgroundColor ="white";
-  displayedAnswerArray[incorrectPos].style.color = "black";
   }
 }
 
@@ -416,9 +292,6 @@ function mainGameSection() {
   var rulesBtn = document.getElementById("buttonRules");
   var rulesSpan = document.getElementsByClassName("close")[0];
   createQuestionArray();
-
-  // modal to display rules of the game //
-
   rulesBtn.onclick = function() {
     if (playSound) {
       standardButtonClickSound.play();
@@ -439,8 +312,116 @@ function mainGameSection() {
   }
 }
 
-// start the game //
+// reset answer colours //
 
+  function resetAnswerColour() {
+    displayedAnswerArray[correctPos].style.backgroundColor = "white";
+    displayedAnswerArray[correctPos].style.color = "black";
+    if (incorrectPos !== -1) {
+      displayedAnswerArray[incorrectPos].style.backgroundColor ="white";
+      displayedAnswerArray[incorrectPos].style.color = "black";
+    }
+  } 
+
+// how the pregame screen looks //
+
+function setInitialScreen() {
+  document.getElementById("currentQuestion").innerHTML = "Press Start to play or Rules for how to play the quiz.";
+  document.getElementById("answerOne").innerHTML = "";
+  document.getElementById("answerTwo").innerHTML = "";
+  document.getElementById("answerThree").innerHTML = "";
+  document.getElementById("countdownTimer").innerHTML = "00";
+  document.getElementById("currentScore").innerHTML = "Score 00";
+  hideDiv.style.visibility = "hidden";
+}
+
+// set the 30 second timer function //
+
+function setTimer() {
+  timerMusic = setTimeout(timerSound, 1000);
+  timeLeft = 30;
+  timerRunning = setInterval(timer, 1000);
+}
+
+// remove one incorrect answer //
+
+function simplifyAnswers() {
+  questionToRemove = Math.floor(Math.random() * 2);
+  while (questionToRemove === correctPos) {
+    questionToRemove = Math.floor(Math.random() * 2);
+  }
+  for (i = 0; i < 3; i++) {
+    if (answerArray[i] !== correctAnswer && i === questionToRemove) {
+      answerArray[i] = "";
+    }
+  }
+  displayAnswers();
+}
+
+// switch between start/quit being shown on their buttons //
+
+function startQuitDisplayed() {
+  startButton = document.getElementById("buttonStart");
+  quitButton = document.getElementById("buttonQuit");
+  if (playingGame) {
+    startButton.innerHTML = "";
+    quitButton.innerHTML = "QUIT";
+  } else {
+    startButton.innerHTML = "START";
+    quitButton.innerHTML = "";
+  }
+}
+
+// the actual timer function //
+
+function timer() {
+  if (timeLeft < 0) {
+    countdownSound.pause();
+    countdownSound.currentTime = 0;
+    if (playSound) {
+      endGameSound.play();
+    }
+    document.getElementById("countdownTimer").innerHTML = "00";
+    endGame();
+  } else if (timeLeft >= 10) {
+    document.getElementById("countdownTimer").innerHTML = timeLeft;
+  } else {
+    document.getElementById("countdownTimer").innerHTML = "0" + timeLeft;
+    quitButton.innerHTML = "";
+  }
+  timeLeft --;
+}
+
+// play the countdown sound //
+
+function timerSound() {
+  if (playSound && playingGame) {
+  countdownSound.play();
+  }
+}
+
+// toggle sound on/off //
+
+function toggleSound() {
+  soundButton = document.getElementById("buttonSound");
+  if (playSound) {
+    playSound = false;
+    soundButton.innerHTML = '<i class="fa fa-volume-off" aria-hidden="true">';
+    countdownSound.pause();
+    crowdBooingSound.pause();
+    newHighScoreSound.pause();
+  } else {
+    playSound = true;
+    soundButton.innerHTML = '<i class="fa fa-volume-up" aria-hidden="true"></i>';
+    if (playingGame) {
+    countdownSound.play();
+    }
+  }
+}
+
+// sets the event listeners for all buttons and starts the game //
+
+document.querySelectorAll("button").forEach((b)=>b.addEventListener("click", answerSelected));
 setTimeout(checkCookie, 500);
 hideDiv.style.visibility = "hidden";
 mainGameSection();
