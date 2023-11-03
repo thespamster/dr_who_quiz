@@ -17,7 +17,11 @@ var questionArray = [];
 var displayedAnswerArray =[];
 var hideDiv = document.getElementById("answer-button-pos");
 var soundButton;
-var previousHighScore;
+var previousHighScore = 0;
+var simplifyButton = document.getElementById("easierButton");
+var rulesButton = document.getElementById("buttonRules");
+var quitButton = document.getElementById("buttonQuit");
+
 
 // game sounds. royalty free. credit in readme. //
 
@@ -32,7 +36,7 @@ var crowdBooingSound = new Audio("assets/sounds/booing.wav");
 
 // event listener function, handles all relevant button presses //
 
-function answerSelected(event){
+function gameButtonPressed(event){
   var button = event.target;
   var buttonPressed = button.innerText;
   event.preventDefault();
@@ -47,6 +51,7 @@ function answerSelected(event){
     }
     if (playingGame === false) {
       hideDiv.style.visibility = "visible";
+      rulesButton.innerHTML = "";
       playingGame = true;
       startQuitDisplayed();
       setTimer();
@@ -57,12 +62,12 @@ function answerSelected(event){
       if (playingGame && !easierFlag && playSound) {
         simplifyButtonSound.play();
       }
+      simplifyButton.innerHTML = "";
       easierFlag = true;
       simplifyAnswers();
     } else if (buttonPressed === "QUIT") {
     if (playingGame === true) {
       playingGame = false;
-      startQuitDisplayed();
       currentScore = 0;
       if (highScore > previousHighScore) {
         highScore = previousHighScore;
@@ -83,11 +88,13 @@ function answerSelected(event){
       }
       playGame = false;
       timeLeft = 0;
+      simplifyButton.innerHTML = "";
       startButton.innerHTML = "";
       quitButton.innerHTML = "";
       setTimeout(endGame, 1500); 
     }
   } else {
+    simplifyButton.innerHTML = "";
     for (i=0; i<3; i++) {
       if (buttonPressed === answerButtons[i].innerText) {
         if (correctPos === i && playingGame) {
@@ -134,6 +141,7 @@ function askQuestion() {
     displayAnswers();
     questionArray.splice(questionToAsk, 1);
     questionsLeft --;
+    simplifyButton.innerHTML = "SIMPLIFY";
   } else {
     endGame();
    }
@@ -144,7 +152,7 @@ function askQuestion() {
 function checkCookie() {
   hiScoreCookie = document.cookie;
   if (hiScoreCookie === "") {
-    alert("This site uses a cookie to store your high score. Please click OK to accept this cookie and play the quiz.");
+    alert("This site uses a cookie to store your high score. Please click OK to accept this cookie and play the quiz or close the browser tab to exit without playing.");
     document.cookie = "highScore=0; expires=Sat, 23 Nov 3000 12:00:00 UTC";
     highScore = 0;
   } else {
@@ -223,6 +231,9 @@ function displayAnswers() {
 // what happens at the end of a game //
 
 function endGame() {
+  simplifyButton.innerHTML = "";
+  rulesButton.innerHTML = "";
+  quitButton.innerHTML = "";
   clearInterval(timerRunning);
   setInitialScreen();
   if (currentScore === 0) {
@@ -243,8 +254,12 @@ function endGame() {
     document.cookie = "highScore=0; expires=Sat, 23 Nov 3000 12:00:00 UTC";
     document.cookie = "highScore="+highScore+"; expires=Sat, 23 Nov 3000 12:00:00 UTC";
   } else if (currentScore === highScore && highScore === 84) {
-    previousHighScore = highScore;
-    newHighScoreSound.play();
+    if (playSound) {
+      previousHighScore = highScore;
+      newHighScoreSound.play();
+    }
+    document.cookie = "highScore=0; expires=Sat, 23 Nov 3000 12:00:00 UTC";
+    document.cookie = "highScore="+highScore+"; expires=Sat, 23 Nov 3000 12:00:00 UTC";
     document.getElementById("currentQuestion").innerHTML = "Wow! You scored 84, the maximum possible. Do you have access to the Matrix? You legend of Gallifrey. Press START to play again.";
   } else if (currentScore <10) {
     document.getElementById("currentQuestion").innerHTML = "You scored 0"+currentScore+". You probably need to reverse the polarity of the neutron flow, or at least have another go.";
@@ -258,6 +273,7 @@ function endGame() {
   questionToAsk = Math.floor(Math.random() * 42);
   currentScore = 0;
   answerArray = [];
+  
   createQuestionArray();
   setTimeout(startQuitDisplayed, 2500);
 }
@@ -293,7 +309,7 @@ function mainGameSection() {
   var rulesSpan = document.getElementsByClassName("close")[0];
   createQuestionArray();
   rulesBtn.onclick = function() {
-    if (playSound) {
+    if (playSound && !playingGame) {
       standardButtonClickSound.play();
     }
     if (playingGame) {
@@ -366,9 +382,11 @@ function startQuitDisplayed() {
   if (playingGame) {
     startButton.innerHTML = "";
     quitButton.innerHTML = "QUIT";
+    rulesButton.innerHTML = "";
   } else {
     startButton.innerHTML = "START";
     quitButton.innerHTML = "";
+    rulesButton.innerHTML = "RULES";
   }
 }
 
@@ -421,7 +439,7 @@ function toggleSound() {
 
 // sets the event listeners for all buttons and starts the game //
 
-document.querySelectorAll("button").forEach((b)=>b.addEventListener("click", answerSelected));
+document.querySelectorAll("button").forEach((b)=>b.addEventListener("click", gameButtonPressed));
 setTimeout(checkCookie, 500);
 hideDiv.style.visibility = "hidden";
 mainGameSection();
