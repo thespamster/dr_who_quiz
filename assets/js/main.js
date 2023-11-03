@@ -56,7 +56,7 @@ function answerSelected(event){
       startQuitDisplayed();
       setTimer();
       questionToAsk = Math.floor(Math.random() * questionsLeft);
-      askQuestion();
+      setTimeout(askQuestion, 1000);
     }
   } else if (buttonPressed === "SIMPLIFY") {
       if (playingGame && !easierFlag && playSound) {
@@ -142,6 +142,7 @@ function askQuestion() {
     questionArray.splice(questionToAsk, 1);
     questionsLeft --;
     simplifyButton.innerHTML = "SIMPLIFY";
+    quitButton.innerHTML = "QUIT";
   } else {
     endGame();
    }
@@ -193,8 +194,7 @@ function contGame() {
   }
   questionToAsk = Math.floor(Math.random() * questionsLeft);
   setTimer();
-  askQuestion();
-  quitButton.innerHTML = "QUIT";
+  setTimeout(askQuestion, 1000);
 }
 
 // create question array //
@@ -273,7 +273,6 @@ function endGame() {
   questionToAsk = Math.floor(Math.random() * 42);
   currentScore = 0;
   answerArray = [];
-  
   createQuestionArray();
   setTimeout(startQuitDisplayed, 2500);
 }
