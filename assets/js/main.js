@@ -297,7 +297,7 @@ function endGame() {
 function highlightAnswers() {
   countdownSound.pause();
   countdownSound.currentTime = 0;
-  displayedAnswerArray = document.getElementsByClassName("answer-style");
+  displayedAnswerArray = document.getElementsByClassName("answerStyle");
   if (incorrectPos === -1) {
     clearInterval(timerRunning);
     displayedAnswerArray[correctPos].style.backgroundColor = "green";
