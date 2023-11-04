@@ -21,6 +21,21 @@ var previousHighScore = 0;
 var simplifyButton = document.getElementById("easierButton");
 var rulesButton = document.getElementById("buttonRules");
 var quitButton = document.getElementById("buttonQuit");
+var currentQuestion;
+var rndNum3;
+var correctAnswer;
+var hiScoreCookie;
+var partScoreCookie;
+var getNumber;
+var setHiScore;
+var scoreDisplay;
+var answerOne;
+var answerTwo;
+var answerThree;
+var timerRunning;
+var timerMusic;
+var questionToRemove;
+var startButton;
 
 
 // game sounds. royalty free. credit in readme. //
@@ -86,12 +101,12 @@ function answerSelected(event){
       if (playSound) {
         endGameSound.play();
       }
-      playGame = false;
+      playingGame = false;
       timeLeft = 0;
       simplifyButton.innerHTML = "";
       startButton.innerHTML = "";
       quitButton.innerHTML = "";
-      setTimeout(endGame, 1500); 
+      setTimeout(endGame, 1500);
     }
   } else {
     simplifyButton.innerHTML = "";
@@ -113,7 +128,7 @@ function answerSelected(event){
           highlightAnswers();
           playingGame = false;
           quitButton.innerHTML = "";
-          setTimeout(endGame, 1500); 
+          setTimeout(endGame, 1500);
         }
       }
     }

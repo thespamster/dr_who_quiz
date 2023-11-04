@@ -18,22 +18,22 @@
     <body id="page-style">
         <h1 class="title-style">'30 Seconds to Doomsday'</h1>
         <div id="button-timer-pos">
-            <button type="button" id="buttonSound" onclick = "toggleSound()"><i class="fa fa-volume-up" aria-hidden="true"></i></button>
-            <button type="button" id="buttonStart">START</button>
+            <button type="button" id="buttonSound" onclick = "toggleSound()" aria-label="volumebutton"><i class="fa fa-volume-up"></i></button>
+            <button type="button" id="buttonStart" aria-label="startbutton">START</button>
             <span id="countdownTimer">00</span>
-            <button type="button" id="buttonQuit"></button>
-            <button type="button" id="buttonRules">RULES</button>
+            <button type="button" id="buttonQuit" aria-label="quitbutton"></button>
+            <button type="button" id="buttonRules" aria-label="rulesbutton">RULES</button>
         </div>
         <div>
             <h2 class="question-style" id="currentQuestion">Press START to play or RULES for how to play the quiz.</h2>
             <div id="answer-button-pos">
-                <button type="button" class="answerButton">A</button><span class="answer-style" id="answerOne"></span>
-                <button type="button" class="answerButton">B</button><span class="answer-style" id="answerTwo"></span>
-                <button type="button" class="answerButton">C</button><span class="answer-style" id="answerThree"></span>
+                <button type="button" class="answerButton" aria-label="answerbuttonone">A</button><span class="answer-style" id="answerOne"></span>
+                <button type="button" class="answerButton" aria-label="answerbuttontwo">B</button><span class="answer-style" id="answerTwo"></span>
+                <button type="button" class="answerButton" aria-label="answerbuttonthree">C</button><span class="answer-style" id="answerThree"></span>
             </div>
             <div id="easier-button-pos">
 
-                <button type="button" id="easierButton"></button>
+                <button type="button" id="easierButton" aria-label="simplifybutton"></button>
             </div>
         </div>
         <div id="score-pos">
