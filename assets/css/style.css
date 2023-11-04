@@ -161,14 +161,14 @@
     cursor: grab;
     padding: 0;
     background-color: rgb(255, 102, 0);
-    box-shadow: 5px 5px 2px rgb(0, 0, 0);
+    box-shadow: 8px 8px 3px rgb(0, 0, 0);
     color: rgb(255, 255, 255);
     border: none;
-    width: 125px;
-    height: 125px;
+    width: 175px;
+    height: 175px;
     border-radius: 50%;
     font-family: 'Roboto', sans-serif;
-    font-size: 1.5em;
+    font-size: 2em;
     font-weight: bold; 
     text-align: center; 
     z-index: 1;
@@ -352,14 +352,14 @@
   #easierButton {
     cursor: grab;
     background-color: rgb(255, 102, 0);
-    box-shadow: 5px 5px 2px rgb(0, 0, 0);
+    box-shadow: 6px 6px 3px rgb(0, 0, 0);
     color: rgb(255, 255, 255);
     border: none;
-    width: 85px;
-    height: 85px;
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
     font-family: 'Roboto', sans-serif;
-    font-size: 1em;
+    font-size: 1.25em;
     font-weight: bold; 
     text-align: center; 
   }
