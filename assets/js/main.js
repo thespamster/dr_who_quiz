@@ -168,7 +168,7 @@ function askQuestion() {
 function checkCookie() {
   hiScoreCookie = document.cookie;
   if (hiScoreCookie === "") {
-    alert("This site uses a cookie to store your high score. Please click OK to accept this cookie and play the quiz or close the browser tab to exit without playing.");
+    alert("This site uses a cookie to store your high score. Please click OK to accept this cookie and play the quiz or close the browser tab to exit without setting a cookie.");
     document.cookie = "highScore=0; expires=Sat, 23 Nov 3000 12:00:00 UTC";
     highScore = 0;
   } else {
