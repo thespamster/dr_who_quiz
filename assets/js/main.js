@@ -15,7 +15,7 @@ var playSound = true;
 var answerArray = [];
 var questionArray = [];
 var displayedAnswerArray =[];
-var hideDiv = document.getElementById("answer-button-pos");
+var hideDiv = document.getElementById("answerButtonPos");
 var soundButton;
 var previousHighScore = 0;
 var simplifyButton = document.getElementById("easierButton");

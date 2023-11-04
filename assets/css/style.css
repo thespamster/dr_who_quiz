@@ -137,7 +137,7 @@
     z-index: 1;
 }
 
-#answer-button-pos {
+#answerButtonPos {
     display: grid;
     grid-template-columns: 15% 75%;
     grid-template-rows: repeat(3, 75px);
@@ -331,7 +331,7 @@
     text-align: center;
   }
 
-  #answer-button-pos {
+  #answerButtonPos {
     display: grid;
     grid-template-columns: 25% 70%;
     grid-template-rows: repeat(3, 75px);
