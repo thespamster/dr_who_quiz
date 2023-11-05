@@ -212,7 +212,7 @@
     left: 0;
     top: 0;
     width: 50%;
-    height: 70dvh;
+    height: 100dvh;
     overflow: auto; 
     background-color: rgba(0,0,0,0.6);
 }
@@ -442,7 +442,7 @@
     left: 0;
     top: 0;
     width: 80%;
-    height: 90dvh;
+    height: 100dvh;
     overflow: auto; 
     background-color: rgba(0,0,0,0.6);
   }
