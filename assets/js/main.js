@@ -51,7 +51,7 @@ var crowdBooingSound = new Audio("assets/sounds/booing.wav");
 
 // event listener function, handles all relevant button presses //
 
-function answerSelected(event){
+function buttonPressed(event){
   var button = event.target;
   var buttonPressed = button.innerText;
   event.preventDefault();
@@ -453,7 +453,7 @@ function toggleSound() {
 
 // sets the event listeners for all buttons and starts the game //
 
-document.querySelectorAll("button").forEach((b)=>b.addEventListener("click", answerSelected));
+document.querySelectorAll("button").forEach((b)=>b.addEventListener("click", buttonPressed));
 setTimeout(checkCookie, 500);
 hideDiv.style.visibility = "hidden";
 mainGameSection();
