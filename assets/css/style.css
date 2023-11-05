@@ -1,4 +1,8 @@
+/*    import google roboto font    */
+
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,400;8..144,600;8..144,700&display=swap');
+
+/*    styling for the page, includes background image, countdown timer style, button styles, text positioning, text styles and font    */
 
 #page-style {
     background-color: rgb(0, 56, 101);
@@ -198,6 +202,8 @@
     bottom: 0px;
 }
 
+/*    styling for the rules modal    */
+
 .modal {
     display: none; 
     position: fixed; 
@@ -241,6 +247,8 @@
     text-decoration: none;
     cursor: pointer;
 }
+
+/*    adjustments to styling for mobile screens    */
 
 @media screen and (max-width: 900px) {
   .title-style {
@@ -424,6 +432,8 @@
     bottom: 0px;
   }
 
+  /*    adjustment to modal styling on mobile screens    */
+
   .modal {
     display: none; 
     position: fixed; 
@@ -447,6 +457,8 @@
     width: 80%;
   }
 }
+
+/*    prevents sticky hover action on mobile displays    */
 
 @media (hover: hover) {
   .answerButton:hover {
