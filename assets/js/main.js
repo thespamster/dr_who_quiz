@@ -37,7 +37,6 @@ var timerMusic;
 var questionToRemove;
 var startButton;
 
-
 // game sounds. royalty free. credit in readme. //
 
 var correctAnswerSound = new Audio("assets/sounds/correct.wav");
@@ -266,14 +265,12 @@ function endGame() {
     } else {
       document.getElementById("currentQuestion").innerHTML = "Congratulations! You have a high score of " + currentScore + ". Play again to see if you can beat it.";
     } 
-    document.cookie = "highScore=0; expires=Sat, 23 Nov 3000 12:00:00 UTC";
     document.cookie = "highScore="+highScore+"; expires=Sat, 23 Nov 3000 12:00:00 UTC";
   } else if (currentScore === highScore && highScore === 84) {
     if (playSound) {
       previousHighScore = highScore;
       newHighScoreSound.play();
     }
-    document.cookie = "highScore=0; expires=Sat, 23 Nov 3000 12:00:00 UTC";
     document.cookie = "highScore="+highScore+"; expires=Sat, 23 Nov 3000 12:00:00 UTC";
     document.getElementById("currentQuestion").innerHTML = "Wow! You scored 84, the maximum possible. Do you have access to the Matrix? You legend of Gallifrey. Press START to play again.";
   } else if (currentScore <10) {
