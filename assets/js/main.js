@@ -75,10 +75,10 @@ function buttonPressed(event){
   } else if (buttonPressed === "SIMPLIFY") {
       if (playingGame && !easierFlag && playSound) {
         simplifyButtonSound.play();
-      }
-      simplifyButton.innerHTML = "";
-      easierFlag = true;
-      simplifyAnswers();
+        simplifyButton.innerHTML = "";
+        easierFlag = true;
+        simplifyAnswers();
+        }
     } else if (buttonPressed === "QUIT") {
     if (playingGame === true) {
       playingGame = false;
