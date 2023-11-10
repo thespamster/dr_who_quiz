@@ -39,14 +39,14 @@ var startButton;
 
 // game sounds. royalty free. credit in readme. //
 
-var correctAnswerSound = new Audio("assets/sounds/correct.wav");
-var incorrectAnswerSound = new Audio("assets/sounds/incorrect.wav");
-var standardButtonClickSound = new Audio("assets/sounds/click.wav");
-var simplifyButtonSound = new Audio("assets/sounds/easy.wav");
-var countdownSound = new Audio("assets/sounds/timer.wav");
-var newHighScoreSound = new Audio("assets/sounds/clapping.wav");
-var endGameSound = new Audio("assets/sounds/fail.wav");
-var crowdBooingSound = new Audio("assets/sounds/booing.wav");
+const correctAnswerSound = new Audio("assets/sounds/correct.wav");
+const incorrectAnswerSound = new Audio("assets/sounds/incorrect.wav");
+const standardButtonClickSound = new Audio("assets/sounds/click.wav");
+const simplifyButtonSound = new Audio("assets/sounds/easy.wav");
+const countdownSound = new Audio("assets/sounds/timer.wav");
+const newHighScoreSound = new Audio("assets/sounds/clapping.wav");
+const endGameSound = new Audio("assets/sounds/fail.wav");
+const crowdBooingSound = new Audio("assets/sounds/booing.wav");
 
 // event listener function, handles all relevant button presses //
 
@@ -74,13 +74,13 @@ function buttonPressed(event){
     }
   } else if (buttonPressed === "SIMPLIFY") {
       if (playingGame && !easierFlag && playSound) {
-        simplifyButtonSound.play();
-        simplifyButton.innerHTML = "";
-        easierFlag = true;
-        simplifyAnswers();
-        }
+      simplifyButtonSound.play();
+      simplifyButton.textContent = "";
+      easierFlag = true;
+      simplifyAnswers();
+      }
     } else if (buttonPressed === "QUIT") {
-    if (playingGame === true) {
+      if (playingGame === true) {
       playingGame = false;
       currentScore = 0;
       if (highScore > previousHighScore) {
@@ -102,13 +102,12 @@ function buttonPressed(event){
       }
       playingGame = false;
       timeLeft = 0;
-      simplifyButton.innerHTML = "";
+      simplifyButton.textContent = "";
       startButton.innerHTML = "";
       quitButton.innerHTML = "";
       setTimeout(endGame, 1500);
     }
   } else {
-    simplifyButton.innerHTML = "";
     for (i=0; i<3; i++) {
       if (buttonPressed === answerButtons[i].innerText) {
         if (correctPos === i && playingGame) {
@@ -155,7 +154,7 @@ function askQuestion() {
     displayAnswers();
     questionArray.splice(questionToAsk, 1);
     questionsLeft --;
-    simplifyButton.innerHTML = "SIMPLIFY";
+    simplifyButton.textContent = "SIMPLIFY";
     quitButton.innerHTML = "QUIT";
   } else {
     endGame();
