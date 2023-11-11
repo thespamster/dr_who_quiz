@@ -119,7 +119,7 @@ function buttonPressed(event){
           }
           highlightAnswers();
           quitButton.innerHTML = "";
-          removeButtons(); //  HERE
+          removeButtons();
           alreadyPicked = true;
           setTimeout(contGame, 1500);
         } else if (correctPos !== i && answerArray[i] !== "" && playingGame) {
@@ -130,7 +130,7 @@ function buttonPressed(event){
           highlightAnswers();
           playingGame = false;
           quitButton.innerHTML = "";
-          removeButtons(); //  HERE
+          removeButtons();
           alreadyPicked = true;
           setTimeout(endGame, 1500);
         }
@@ -264,7 +264,7 @@ function displayAnswers() {
 // what happens at the end of a game //
 
 function endGame() {
-  simplifyButton.innerHTML = "";
+  simplifyButton.innerText = "";
   rulesButton.innerHTML = "";
   quitButton.innerHTML = "";
   clearInterval(timerRunning);

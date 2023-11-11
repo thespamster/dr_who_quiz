@@ -370,6 +370,7 @@
     font-size: 1.25em;
     font-weight: bold; 
     text-align: center; 
+    z-index: 2;
   }
     
   #easier-button-pos {
