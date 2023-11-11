@@ -207,12 +207,12 @@
 .modal {
     display: none; 
     position: fixed; 
-    z-index: 1; 
+    z-index: 2; 
     padding: 10% 25%;
     left: 0;
     top: 0;
     width: 50%;
-    height: 100dvh;
+    height: 75dvh;
     overflow: auto; 
     background-color: rgba(0,0,0,0.6);
 }
@@ -437,12 +437,12 @@
   .modal {
     display: none; 
     position: fixed; 
-    z-index: 1; 
+    z-index: 2; 
     padding: 10% 10%;
     left: 0;
     top: 0;
     width: 80%;
-    height: 100dvh;
+    height: 90dvh;
     overflow: auto; 
     background-color: rgba(0,0,0,0.6);
   }

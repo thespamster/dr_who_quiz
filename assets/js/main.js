@@ -36,6 +36,7 @@ var timerRunning;
 var timerMusic;
 var questionToRemove;
 var startButton;
+var alreadyPicked = false;
 
 // game sounds. royalty free. credit in readme. //
 
@@ -73,8 +74,10 @@ function buttonPressed(event){
       setTimeout(askQuestion, 1000);
     }
   } else if (buttonPressed === "SIMPLIFY") {
-      if (playingGame && !easierFlag && playSound) {
-      simplifyButtonSound.play();
+      if (playingGame && !easierFlag) {
+        if (playSound) {
+          simplifyButtonSound.play();
+        }
       simplifyButton.textContent = "";
       easierFlag = true;
       simplifyAnswers();
@@ -102,21 +105,22 @@ function buttonPressed(event){
       }
       playingGame = false;
       timeLeft = 0;
-      simplifyButton.textContent = "";
       startButton.innerHTML = "";
       quitButton.innerHTML = "";
       setTimeout(endGame, 1500);
     }
-  } else {
+  } else if (!alreadyPicked) {
     for (i=0; i<3; i++) {
       if (buttonPressed === answerButtons[i].innerText) {
-        if (correctPos === i && playingGame) {
+        if (correctPos === i && playingGame && !alreadyPicked) {
           incorrectPos = -1;
           if (playSound) {
             correctAnswerSound.play();
           }
           highlightAnswers();
           quitButton.innerHTML = "";
+          removeButtons(); //  HERE
+          alreadyPicked = true;
           setTimeout(contGame, 1500);
         } else if (correctPos !== i && answerArray[i] !== "" && playingGame) {
           incorrectPos = i;
@@ -126,6 +130,8 @@ function buttonPressed(event){
           highlightAnswers();
           playingGame = false;
           quitButton.innerHTML = "";
+          removeButtons(); //  HERE
+          alreadyPicked = true;
           setTimeout(endGame, 1500);
         }
       }
@@ -133,11 +139,20 @@ function buttonPressed(event){
   }
 }
 
+//  add answer buttons //
+
+function addButtons() {
+  answerButtons[0].innerText = "A";
+  answerButtons[1].innerText = "B";
+  answerButtons[2].innerText = "C";
+}
+
 // asks a question and randomises the answers positions //
 
 function askQuestion() {
   correctPos = 0;
   easierFlag = false;
+  alreadyPicked = false;
   if (questionsLeft > 0) {
     currentQuestion = document.getElementById("currentQuestion");
     currentQuestion.innerHTML = questionArray[questionToAsk].question;
@@ -152,9 +167,11 @@ function askQuestion() {
     }
     correctAnswer = questionArray[questionToAsk].answers[0];
     displayAnswers();
+    addButtons();
     questionArray.splice(questionToAsk, 1);
     questionsLeft --;
     simplifyButton.textContent = "SIMPLIFY";
+    easierFlag = false;
     quitButton.innerHTML = "QUIT";
   } else {
     endGame();
@@ -279,6 +296,7 @@ function endGame() {
   }
   easierFlag = false;
   playingGame = false;
+  alreadyPicked = false;
   timeLeft = 0;
   questionsLeft = 42;
   questionToAsk = Math.floor(Math.random() * 42);
@@ -338,11 +356,19 @@ function mainGameSection() {
   }
 }
 
+// remove answer buttons //
+
+function removeButtons() {
+  answerButtons[0].innerText = "";
+  answerButtons[1].innerText = "";
+  answerButtons[2].innerText = "";
+}
+
 // reset answer colours //
 
-  function resetAnswerColour() {
-    displayedAnswerArray[correctPos].style.backgroundColor = "white";
-    displayedAnswerArray[correctPos].style.color = "black";
+function resetAnswerColour() {
+  displayedAnswerArray[correctPos].style.backgroundColor = "white";
+  displayedAnswerArray[correctPos].style.color = "black";
     if (incorrectPos !== -1) {
       displayedAnswerArray[incorrectPos].style.backgroundColor ="white";
       displayedAnswerArray[incorrectPos].style.color = "black";
@@ -379,6 +405,7 @@ function simplifyAnswers() {
   for (i = 0; i < 3; i++) {
     if (answerArray[i] !== correctAnswer && i === questionToRemove) {
       answerArray[i] = "";
+      answerButtons[i].innerText = "";
     }
   }
   displayAnswers();
