@@ -18,9 +18,7 @@ var displayedAnswerArray =[];
 var hideDiv = document.getElementById("answerButtonPos");
 var soundButton;
 var previousHighScore = 0;
-var simplifyButton = document.getElementById("easierButton");
-var rulesButton = document.getElementById("buttonRules");
-var quitButton = document.getElementById("buttonQuit");
+var quitButton;
 var currentQuestion;
 var rndNum3;
 var correctAnswer;
@@ -37,6 +35,7 @@ var timerMusic;
 var questionToRemove;
 var startButton;
 var alreadyPicked = false;
+var buttonHidden;
 
 // game sounds. royalty free. credit in readme. //
 
@@ -66,7 +65,6 @@ function buttonPressed(event){
     }
     if (playingGame === false) {
       hideDiv.style.visibility = "visible";
-      rulesButton.innerHTML = "";
       playingGame = true;
       startQuitDisplayed();
       setTimer();
@@ -78,7 +76,6 @@ function buttonPressed(event){
         if (playSound) {
           simplifyButtonSound.play();
         }
-      simplifyButton.textContent = "";
       easierFlag = true;
       simplifyAnswers();
       }
@@ -119,7 +116,6 @@ function buttonPressed(event){
           }
           highlightAnswers();
           quitButton.innerHTML = "";
-          removeButtons();
           alreadyPicked = true;
           setTimeout(contGame, 1500);
         } else if (correctPos !== i && answerArray[i] !== "" && playingGame) {
@@ -130,21 +126,12 @@ function buttonPressed(event){
           highlightAnswers();
           playingGame = false;
           quitButton.innerHTML = "";
-          removeButtons();
           alreadyPicked = true;
           setTimeout(endGame, 1500);
         }
       }
     }
   }
-}
-
-//  add answer buttons //
-
-function addButtons() {
-  answerButtons[0].innerText = "A";
-  answerButtons[1].innerText = "B";
-  answerButtons[2].innerText = "C";
 }
 
 // asks a question and randomises the answers positions //
@@ -167,10 +154,8 @@ function askQuestion() {
     }
     correctAnswer = questionArray[questionToAsk].answers[0];
     displayAnswers();
-    addButtons();
     questionArray.splice(questionToAsk, 1);
     questionsLeft --;
-    simplifyButton.textContent = "SIMPLIFY";
     easierFlag = false;
     quitButton.innerHTML = "QUIT";
   } else {
@@ -224,6 +209,7 @@ function contGame() {
   }
   questionToAsk = Math.floor(Math.random() * questionsLeft);
   setTimer();
+  buttonHidden.style.visibility = "visible";
   setTimeout(askQuestion, 1000);
 }
 
@@ -256,16 +242,11 @@ function displayAnswers() {
       correctPos = i;
     }
   }
-  if (!easierFlag) {
-    simplifyButton.textContent = "SIMPLIFY";
-  }
 }
 
 // what happens at the end of a game //
 
 function endGame() {
-  simplifyButton.innerText = "";
-  rulesButton.innerHTML = "";
   quitButton.innerHTML = "";
   clearInterval(timerRunning);
   setInitialScreen();
@@ -340,12 +321,12 @@ function mainGameSection() {
   var rulesSpan = document.getElementsByClassName("close")[0];
   createQuestionArray();
   rulesBtn.onclick = function() {
-    if (playSound && !playingGame) {
+    if (!playingGame) {
+      if (playSound) {
       standardButtonClickSound.play();
-    }
-    if (playingGame) {
-      return;
-    } else {
+      }
+    
+    
       rulesModal.style.display = "block";
     }
     rulesSpan.onclick = function() {
@@ -357,14 +338,6 @@ function mainGameSection() {
       }
     }
   }
-}
-
-// remove answer buttons //
-
-function removeButtons() {
-  answerButtons[0].innerText = "";
-  answerButtons[1].innerText = "";
-  answerButtons[2].innerText = "";
 }
 
 // reset answer colours //
@@ -408,7 +381,8 @@ function simplifyAnswers() {
   for (i = 0; i < 3; i++) {
     if (answerArray[i] !== correctAnswer && i === questionToRemove) {
       answerArray[i] = "";
-      answerButtons[i].innerText = "";
+      buttonHidden = answerButtons[i]
+      buttonHidden.style.visibility = "hidden";
     }
   }
   displayAnswers();
@@ -422,11 +396,9 @@ function startQuitDisplayed() {
   if (playingGame) {
     startButton.innerHTML = "";
     quitButton.innerHTML = "QUIT";
-    rulesButton.innerHTML = "";
   } else {
     startButton.innerHTML = "START";
     quitButton.innerHTML = "";
-    rulesButton.innerHTML = "RULES";
   }
 }
 
