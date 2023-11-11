@@ -35,7 +35,6 @@ var timerMusic;
 var questionToRemove;
 var startButton;
 var alreadyPicked = false;
-var buttonHidden;
 
 // game sounds. royalty free. credit in readme. //
 
@@ -209,7 +208,6 @@ function contGame() {
   }
   questionToAsk = Math.floor(Math.random() * questionsLeft);
   setTimer();
-  buttonHidden.style.visibility = "visible";
   setTimeout(askQuestion, 1000);
 }
 
@@ -381,10 +379,8 @@ function simplifyAnswers() {
   for (i = 0; i < 3; i++) {
     if (answerArray[i] !== correctAnswer && i === questionToRemove) {
       answerArray[i] = "";
-      buttonHidden = answerButtons[i]
-      buttonHidden.style.visibility = "hidden";
-    }
   }
+}
   displayAnswers();
 }
 
