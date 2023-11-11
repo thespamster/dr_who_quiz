@@ -256,6 +256,9 @@ function displayAnswers() {
       correctPos = i;
     }
   }
+  if (!easierFlag) {
+    simplifyButton.textContent = "SIMPLIFY";
+  }
 }
 
 // what happens at the end of a game //
